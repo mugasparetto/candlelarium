@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+body {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
+    Courier New, monospace;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+  overflow: hidden;
+  position: relative;
+}
+
+main {
+  position:absolute;
+  top:0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+a,
+a:visited {
+  color: #0000ee;
+}
+
+.ascii-art {
+  white-space: pre;
+}
+
+@media only screen and (max-width: 22.5rem) {
+  body {
+    font-size: 0.75rem;
+  }
+}
