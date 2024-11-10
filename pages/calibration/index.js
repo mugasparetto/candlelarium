@@ -5,6 +5,26 @@ export function init() {
   document.querySelector('body').removeAttribute('style');
 
   document.querySelector('a').addEventListener('click', startCalibration);
+
+  const volumeMeter = document.createElement('script');
+  volumeMeter.src = './js/volume-meter.js';
+  document.head.appendChild(volumeMeter);
+
+  const audioDetectionConfig = document.createElement('script');
+  audioDetectionConfig.src = './js/audioDetectionConfig.js';
+  document.head.appendChild(audioDetectionConfig);
+
+  const audioDetection = document.createElement('script');
+  audioDetection.src = './js/audioDetection.js';
+  document.head.appendChild(audioDetection);
+
+  const audioStream = document.createElement('script');
+  audioStream.src = './js/audioStream.js';
+  document.head.appendChild(audioStream);
+
+  const p5 = document.createElement('script');
+  p5.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js';
+  document.head.appendChild(p5);
 }
 
 export function cleanup() {
