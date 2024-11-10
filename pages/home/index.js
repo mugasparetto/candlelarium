@@ -12,6 +12,5 @@ export function init() {
 }
 
 export function cleanup() {
-  document.querySelector('main').style.left = "50%";
-  document.querySelector('body').style.fontSize = '1rem';
+
 }
