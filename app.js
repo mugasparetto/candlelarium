@@ -76,5 +76,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
   // grab an audio context
-  audioContext = new AudioContext();s
+  audioContext = new AudioContext();
 });
