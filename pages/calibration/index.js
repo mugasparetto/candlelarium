@@ -12,11 +12,14 @@ export function init() {
 
   const audioDetectionConfig = document.createElement('script');
   audioDetectionConfig.src = './js/audioDetectionConfig.js';
-  document.head.appendChild(audioDetectionConfig);
 
-  const audioDetection = document.createElement('script');
-  audioDetection.src = './js/audioDetection.js';
-  document.head.appendChild(audioDetection);
+  audioDetectionConfig.onload = () => {
+    const audioDetection = document.createElement('script');
+    audioDetection.src = './js/audioDetection.js';
+    document.head.appendChild(audioDetection);
+  };
+
+  document.head.appendChild(audioDetectionConfig);
 
   const audioStream = document.createElement('script');
   audioStream.src = './js/audioStream.js';
