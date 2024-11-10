@@ -1,4 +1,4 @@
-// pages/home.js
+// pages/calibration.js
 export function init() {
   // cleanin up home in here to prevent bugs
   document.querySelector('main').removeAttribute("style");
