@@ -46,7 +46,7 @@ a:visited {
   position: absolute;
   top:50%;
   left:50%;
-  width:10rem;
+  width:12rem;
   transform: translate(-50%, -50%);
 }
 
