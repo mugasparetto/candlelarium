@@ -65,7 +65,16 @@ class SPA {
   }
 }
 
+var audioContext = null;
+var meter = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize the SPA
   const spa = new SPA();
+
+  // monkeypatch Web Audio
+  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+  // grab an audio context
+  audioContext = new AudioContext();s
 });
