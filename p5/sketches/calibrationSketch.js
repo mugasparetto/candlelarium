@@ -32,7 +32,7 @@ export class CalibrationSketch {
   }
 
   draw() {
-    this.p.background(220);
+    this.p.background(255);
     this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
     this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
     this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
