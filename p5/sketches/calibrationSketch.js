@@ -57,7 +57,7 @@ export class CalibrationSketch {
         this.countString = '🚪';
       }
       if (this.fade > 260) {
-        const link = this.p.createA('#', '<small>enter the oracle</small>');
+        const link = this.p.createA('#', '<small>~> enter the oracle</small>');
         link.addClass('enter-oracle');
         link.attribute('data-link', 'domains');
         link.position(this.p.width - 100, CELL_SIZE);
