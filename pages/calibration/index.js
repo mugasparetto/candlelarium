@@ -1,4 +1,6 @@
 // pages/calibration.js
+let calibrationSketch;
+
 export function init() {
   // cleanin up home in here to prevent bugs
   document.querySelector('main').removeAttribute('style');
@@ -32,6 +34,7 @@ export function init() {
 
 export function cleanup() {
   document.querySelector('a').removeEventListener('click', startCalibration);
+  document.removeEventListener('signal', handleSignal);
 }
 
 function startCalibration(event) {
@@ -71,9 +74,22 @@ function startCalibration(event) {
           .querySelector('.calibration-content')
           .appendChild(canvasWraper);
 
-        const sketch = await import(`../../p5/sketches/calibrationSketch.js`);
+        const module = await import(`../../p5/sketches/calibrationSketch.js`);
 
-        new p5(sketch.sketch, 'calibration-canvas');
+        new p5(
+          (p) => (calibrationSketch = new module.CalibrationSketch(p)),
+          'calibration-canvas'
+        );
+
+        const blowClass = document.createElement('script');
+        blowClass.src = '../../p5/classes/wave.js';
+        document.head.appendChild(blowClass);
+
+        const candleClass = document.createElement('script');
+        candleClass.src = '../../p5/classes/candle.js';
+        document.head.appendChild(candleClass);
+
+        document.addEventListener('signal', handleSignal);
       })
       .catch(didntGetStream);
   } catch (e) {
@@ -84,4 +100,13 @@ function startCalibration(event) {
 function didntGetStream(error) {
   alert('Stream generation failed.');
   console.log(error);
+}
+
+function handleSignal(event) {
+  const dBV = dB(event.detail.volume);
+  if (dBV >= BLOW_THRESHOLD) {
+    calibrationSketch.startBlow();
+  } else {
+    calibrationSketch.endBlow();
+  }
 }

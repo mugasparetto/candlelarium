@@ -67,6 +67,7 @@ class SPA {
 
 var audioContext = null;
 var meter = null;
+const CELL_SIZE = 30;
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize the SPA

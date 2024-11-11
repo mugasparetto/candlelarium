@@ -1,14 +1,15 @@
 class BlowWave {
-  constructor() {
+  constructor(p) {
+    this.p = p;
     this.height = CELL_SIZE;
-    this.width = width;
-    this.y = height - 3 * CELL_SIZE;
+    this.width = this.p.width;
+    this.y = this.p.height;
     this.isOut = false;
-    this.strength = random(3);
+    this.strength = this.p.random(3);
   }
 
   show() {
-    text("🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀", 0, this.y, this.width, this.height);
+    this.p.text('🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀', 0, this.y, this.width, this.height);
   }
 
   update() {

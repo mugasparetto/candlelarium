@@ -1,83 +1,89 @@
-export function sketch(p) {
-  const CELL_SIZE = 30;
-  const waves = [];
-  var isBlowing = false;
-  var button;
-  var isBlowing = false;
-  var finishedBlowing = false;
-  var blowCount = 0;
-  var countString = [];
+export class CalibrationSketch {
+  constructor(p) {
+    this.p = p;
+    this.waves = [];
+    this.blowCount = 0;
+    this.countString = [];
+    this.isBlowing = false;
+    this.finishedBlowing = false;
+    this.blowModule;
 
-  p.setup = function () {
-    p.frameRate(10);
+    p.setup = () => this.setup();
+    p.draw = () => this.draw();
+  }
+
+  setup() {
+    this.p.frameRate(10);
     const w = document.querySelector('#calibration-canvas').offsetWidth;
-    p.createCanvas(w, 9 * CELL_SIZE);
-    p.textAlign(p.CENTER);
-    p.noStroke();
-    p.fill(255, 0, 0);
-    p.fill(0);
-    p.textSize(CELL_SIZE);
-    p.textFont('Courier New');
-    p.text('🕯️', 0, CELL_SIZE, p.width, CELL_SIZE);
-    p.text('✨️   ✨️', 0, 2 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('✨️         ✨️', 0, 4 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('✨️   ✨️', 0, 6 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('🕯️', 0, 7 * CELL_SIZE, p.width, CELL_SIZE);
-    button = p.createButton('blow');
-    button.position(p.width / 2 - 25, p.height + 25);
-    button.mousePressed(startBlow);
-    button.mouseReleased(endBlow);
-  };
+    this.p.createCanvas(w, 9 * CELL_SIZE);
+    this.p.textAlign(this.p.CENTER);
+    this.p.noStroke();
+    this.p.fill(255, 0, 0);
+    this.p.fill(0);
+    this.p.textSize(CELL_SIZE);
+    this.p.textFont('Courier New');
+    this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('✨️         ✨️', 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
+  }
 
-  p.draw = function () {
-    p.background(255);
-    p.text('🕯️', 0, CELL_SIZE, p.width, CELL_SIZE);
-    p.text('✨️   ✨️', 0, 2 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('✨️         ✨️', 0, 4 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('✨️   ✨️', 0, 6 * CELL_SIZE, p.width, CELL_SIZE);
-    p.text('🕯️', 0, 7 * CELL_SIZE, p.width, CELL_SIZE);
+  draw() {
+    this.p.background(220);
+    this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('✨️         ✨️', 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
 
-    if (isBlowing) {
-      waves.push(new BlowWave());
+    if (this.isBlowing) {
+      this.waves.push(new BlowWave(this.p));
     }
 
-    p.text(countString.join(''), 0, 4 * CELL_SIZE, p.width, CELL_SIZE);
+    this.p.text(
+      this.countString.join(''),
+      0,
+      4 * CELL_SIZE,
+      this.p.width,
+      CELL_SIZE
+    );
 
-    for (var i = waves.length - 1; i >= 0; i--) {
-      const wave = waves[i];
+    for (var i = this.waves.length - 1; i >= 0; i--) {
+      const wave = this.waves[i];
       wave.show();
       wave.update();
 
       if (wave.isOut) {
-        waves.splice(i, 1);
+        this.waves.splice(i, 1);
       }
     }
 
     if (
-      finishedBlowing &&
-      waves.length > 0 &&
-      waves[waves.length - 1].y < 3 * CELL_SIZE
+      this.finishedBlowing &&
+      this.waves.length > 0 &&
+      this.waves[this.waves.length - 1].y < 3 * CELL_SIZE
     ) {
-      updateCount();
+      this.updateCount();
     }
-  };
-
-  function updateCount() {
-    countString = new Array(blowCount).fill('🕯️');
   }
 
-  function startBlow() {
-    isBlowing = true;
-    finishedBlowing = false;
+  updateCount() {
+    this.countString = new Array(this.blowCount).fill('🕯️');
   }
 
-  function endBlow() {
-    isBlowing = false;
-    finishedBlowing = true;
-    blowCount++;
+  startBlow() {
+    this.isBlowing = true;
+    this.finishedBlowing = false;
+  }
+
+  endBlow() {
+    this.isBlowing = false;
+    this.finishedBlowing = true;
+    this.blowCount++;
   }
 }
