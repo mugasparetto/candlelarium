@@ -50,16 +50,10 @@ export class CalibrationSketch {
     }
 
     this.p.text(this.countString, 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
-
     if (this.shouldFade) {
       this.fade += this.fadeFactor;
       this.p.fill(255, this.fade);
-      this.p.rect(
-        this.p.width * 0.4,
-        3 * CELL_SIZE,
-        this.p.width * 0.2,
-        3 * CELL_SIZE
-      );
+      this.p.rect(this.p.width / 2 - 50, 3.5 * CELL_SIZE, 100, 2 * CELL_SIZE);
 
       if (this.fade > 255) {
         this.fadeFactor *= -1;
@@ -69,7 +63,10 @@ export class CalibrationSketch {
         const link = this.p.createA('#', '<small>~> enter the oracle</small>');
         link.addClass('enter-oracle');
         link.attribute('data-link', 'domains');
-        link.position(this.p.width - 140, 0);
+        link.elt.style.position = 'absolute';
+        link.elt.style.top = '0';
+        link.elt.style.right = '27%';
+        link.elt.style.transform = 'translateX(50%)';
         spa.handleLinks();
         this.shouldFade = false;
       }

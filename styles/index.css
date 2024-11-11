@@ -57,7 +57,7 @@ a:visited {
 #calibration-canvas {
   position: absolute;
   top: 50%;
-  width: 80vw;
+  width: 100vw;
   height: 16.875rem;
   left: 50%;
   transform: translateX(-50%);
