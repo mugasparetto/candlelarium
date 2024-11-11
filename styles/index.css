@@ -38,7 +38,8 @@ a:visited {
   top: 5.5rem;
   left: 50%;
   transform: translateX(-50%);
-  white-space: pre;
+  width:20rem;
+  text-align: center;
 }
 
 .calibration-cta {
