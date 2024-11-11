@@ -7,8 +7,8 @@ export class CalibrationSketch {
     this.isBlowing = false;
     this.finishedBlowing = false;
     this.shouldFade = false;
-    this.fade = 255;
-    this.fadeFactor = -20;
+    this.fade = 0;
+    this.fadeFactor = 20;
     // TODO: change to 3
     this.maxBlowCount = 1;
 
@@ -49,25 +49,31 @@ export class CalibrationSketch {
       this.waves.push(new BlowWave(this.p));
     }
 
+    this.p.text(this.countString, 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
+
     if (this.shouldFade) {
       this.fade += this.fadeFactor;
-      this.p.fill(0, this.fade);
-      if (this.fade < 0) {
+      this.p.fill(255, this.fade);
+      this.p.rect(
+        this.p.width * 0.4,
+        3 * CELL_SIZE,
+        this.p.width * 0.2,
+        3 * CELL_SIZE
+      );
+
+      if (this.fade > 255) {
         this.fadeFactor *= -1;
         this.countString = '🚪';
       }
-      if (this.fade > 260) {
+      if (this.fade < 0) {
         const link = this.p.createA('#', '<small>~> enter the oracle</small>');
         link.addClass('enter-oracle');
         link.attribute('data-link', 'domains');
-        link.position(this.p.width - 100, CELL_SIZE);
+        link.position(this.p.width - 140, 0);
         spa.handleLinks();
         this.shouldFade = false;
       }
-    } else {
-      this.p.fill(0);
     }
-    this.p.text(this.countString, 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
 
     for (var i = this.waves.length - 1; i >= 0; i--) {
       const wave = this.waves[i];
@@ -109,10 +115,6 @@ export class CalibrationSketch {
       this.isBlowing = false;
       this.finishedBlowing = true;
       this.blowCount++;
-
-      if (this.blowCount >= this.maxBlowCount) {
-        setTimeout(() => {}, 2000);
-      }
     }
   }
 }
