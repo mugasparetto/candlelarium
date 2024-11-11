@@ -35,6 +35,8 @@ export function init() {
 export function cleanup() {
   document.querySelector('a').removeEventListener('click', startCalibration);
   document.removeEventListener('signal', handleSignal);
+  document.removeEventListener('speechstop', handleBlowSucceeded);
+  document.removeEventListener('speechabort', handleAbortedBlow);
 }
 
 function startCalibration(event) {
