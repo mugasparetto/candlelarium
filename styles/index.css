@@ -27,13 +27,13 @@ a:visited {
   color: #0000ee;
 }
 
-.calibration-content {
+.content {
   position: relative;
   height: 100vh;
   width: 10rem;
 }
 
-.calibration-header {
+.header {
   position: absolute;
   top: 5.5rem;
   left: 50%;
@@ -84,7 +84,7 @@ a:visited {
 }
 
 @media only screen and (max-height: 40rem) {
-  .calibration-header {
+  .header {
     top: 3.5rem;
   }
 

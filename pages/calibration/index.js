@@ -70,9 +70,7 @@ function startCalibration(event) {
 
         const canvasWraper = document.createElement('div');
         canvasWraper.id = 'calibration-canvas';
-        document
-          .querySelector('.calibration-content')
-          .appendChild(canvasWraper);
+        document.querySelector('.content').appendChild(canvasWraper);
 
         const module = await import(`../../p5/sketches/calibrationSketch.js`);
 
