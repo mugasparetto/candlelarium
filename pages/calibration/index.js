@@ -54,14 +54,14 @@ function startCalibration(event) {
           optional: [],
         },
       })
-      .then((stream) => {
+      .then(async (stream) => {
         audioStream(stream);
         const link = document.querySelector('a');
         link.removeEventListener('click', startCalibration);
         link.remove();
 
         const div = document.querySelector('.calibration-cta');
-        div.style.top = '40%';
+        div.classList.add('higher');
         div.innerHTML =
           '<small>three breaths connect us deeper<br />each blow into the screen gets<br />you closer to the oracle</small>';
 
@@ -71,16 +71,9 @@ function startCalibration(event) {
           .querySelector('.calibration-content')
           .appendChild(canvasWraper);
 
-        new p5(function (p) {
-          p.setup = function () {
-            p.createCanvas(canvasWraper.offsetWidth, canvasWraper.offsetHeight);
-          };
+        const sketch = await import(`../../p5/sketches/calibrationSketch.js`);
 
-          p.draw = function () {
-            p.background(230);
-            p.text(p.width, 10, 10);
-          };
-        }, 'calibration-canvas');
+        new p5(sketch.sketch, 'calibration-canvas');
       })
       .catch(didntGetStream);
   } catch (e) {
@@ -88,6 +81,7 @@ function startCalibration(event) {
   }
 }
 
-function didntGetStream() {
+function didntGetStream(error) {
   alert('Stream generation failed.');
+  console.log(error);
 }
