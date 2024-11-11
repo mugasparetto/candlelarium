@@ -69,10 +69,11 @@ class SPA {
 var audioContext = null;
 var meter = null;
 const CELL_SIZE = 30;
-// Initialize the SPA
-const spa = new SPA();
+let spa;
 
 document.addEventListener('DOMContentLoaded', () => {
+  spa = new SPA();
+
   // monkeypatch Web Audio
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
 

@@ -10,7 +10,7 @@ export class CalibrationSketch {
     this.fade = 0;
     this.fadeFactor = 20;
     // TODO: change to 3
-    this.maxBlowCount = 1;
+    this.maxBlowCount = 3;
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
