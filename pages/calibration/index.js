@@ -91,6 +91,7 @@ function startCalibration(event) {
 
         document.addEventListener('signal', handleSignal);
         document.addEventListener('speechstop', handleBlowSucceeded);
+        document.addEventListener('speechabort', handleAbortedBlow);
       })
       .catch(didntGetStream);
   } catch (e) {
@@ -112,4 +113,8 @@ function handleSignal(event) {
 
 function handleBlowSucceeded() {
   calibrationSketch.endBlow();
+}
+
+function handleAbortedBlow() {
+  calibrationSketch.isBlowing = false;
 }

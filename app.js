@@ -44,17 +44,6 @@ class SPA {
     // Update DOM
     this.appContainer.innerHTML = htmlContent;
 
-    // Handle links
-    const links = this.appContainer.querySelectorAll('[data-link]');
-    links.forEach((link) => {
-      console.log(link);
-      link.onclick = (event) => {
-        event.preventDefault();
-        const page = link.dataset.link;
-        this.navigate(page);
-      };
-    });
-
     // Initialize new page
     if (pageModule.init) {
       pageModule.init();
@@ -63,16 +52,27 @@ class SPA {
     // Store current page module
     this.currentPage = pageModule;
   }
+
+  handleLinks() {
+    // Handle links
+    const links = this.appContainer.querySelectorAll('[data-link]');
+    links.forEach((link) => {
+      link.onclick = (event) => {
+        event.preventDefault();
+        const page = link.dataset.link;
+        this.navigate(page);
+      };
+    });
+  }
 }
 
 var audioContext = null;
 var meter = null;
 const CELL_SIZE = 30;
+// Initialize the SPA
+const spa = new SPA();
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize the SPA
-  const spa = new SPA();
-
   // monkeypatch Web Audio
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
