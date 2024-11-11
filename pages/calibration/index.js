@@ -90,6 +90,7 @@ function startCalibration(event) {
         document.head.appendChild(candleClass);
 
         document.addEventListener('signal', handleSignal);
+        document.addEventListener('speechstop', handleBlowSucceeded);
       })
       .catch(didntGetStream);
   } catch (e) {
@@ -106,7 +107,9 @@ function handleSignal(event) {
   const dBV = dB(event.detail.volume);
   if (dBV >= BLOW_THRESHOLD) {
     calibrationSketch.startBlow();
-  } else {
-    calibrationSketch.endBlow();
   }
+}
+
+function handleBlowSucceeded() {
+  calibrationSketch.endBlow();
 }

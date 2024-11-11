@@ -66,7 +66,7 @@ export class CalibrationSketch {
     if (
       this.finishedBlowing &&
       this.waves.length > 0 &&
-      this.waves[this.waves.length - 1].y < 3 * CELL_SIZE
+      this.waves[this.waves.length - 1].y < 4 * CELL_SIZE
     ) {
       this.updateCount();
     }
@@ -82,8 +82,10 @@ export class CalibrationSketch {
   }
 
   endBlow() {
-    this.isBlowing = false;
-    this.finishedBlowing = true;
-    this.blowCount++;
+    if (this.isBlowing && !this.finishedBlowing) {
+      this.isBlowing = false;
+      this.finishedBlowing = true;
+      this.blowCount++;
+    }
   }
 }
