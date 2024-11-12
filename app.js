@@ -69,6 +69,7 @@ class SPA {
 var audioContext = null;
 var meter = null;
 const CELL_SIZE = 30;
+const calibrationBlows = [];
 let spa;
 
 document.addEventListener('DOMContentLoaded', () => {

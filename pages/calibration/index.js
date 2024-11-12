@@ -1,5 +1,6 @@
 // pages/calibration.js
 let calibrationSketch;
+let maxDB = -40;
 
 export function init() {
   // cleanin up home in here to prevent bugs
@@ -123,6 +124,10 @@ function didntGetStream(error) {
 
 function handleSignal(event) {
   const dBV = dB(event.detail.volume);
+  if (dBV > maxDB) {
+    maxDB = dBV;
+  }
+
   if (dBV >= BLOW_THRESHOLD) {
     calibrationSketch.startBlow();
   }
@@ -130,6 +135,8 @@ function handleSignal(event) {
 
 function handleBlowSucceeded() {
   calibrationSketch.endBlow();
+  calibrationBlows.push(maxDB);
+  maxDB = -40;
 }
 
 function handleAbortedBlow() {

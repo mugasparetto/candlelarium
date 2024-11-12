@@ -33,15 +33,15 @@ export class CalibrationSketch {
   draw() {
     this.p.background(255);
 
-    if(this.p.frameCount > this.initialDelay) {
-    this.p.fill(0);
-    this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('✨️         ✨️', 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
+    if (this.p.frameCount > this.initialDelay) {
+      this.p.fill(0);
+      this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('✨️         ✨️', 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
     }
 
     if (this.isBlowing && !this.shouldInitialFade) {
@@ -90,10 +90,10 @@ export class CalibrationSketch {
     }
 
     if (this.shouldInitialFade && this.p.frameCount > this.initialDelay) {
-      this.p.fill(255,this.initialFade);
-      this.p.rect(0,0,this.p.width, this.p.height);
+      this.p.fill(255, this.initialFade);
+      this.p.rect(0, 0, this.p.width, this.p.height);
       this.initialFade -= 20;
-      if(this.initialFade < 0) {
+      if (this.initialFade < 0) {
         this.shouldInitialFade = false;
       }
     }
@@ -102,6 +102,9 @@ export class CalibrationSketch {
   updateCount() {
     this.countString = new Array(this.blowCount).fill('🕯️').join('');
     if (this.blowCount >= this.maxBlowCount) {
+      BLOW_THRESHOLD = Math.min(...calibrationBlows);
+      // TODO: remove below
+      this.p.select('#debug').html(`${BLOW_THRESHOLD} • [${calibrationBlows}]`);
       setTimeout(() => {
         this.shouldFade = true;
       }, 1000);
