@@ -52,7 +52,7 @@ export class CalibrationSketch {
     if (this.shouldFade) {
       this.fade += this.fadeFactor;
       this.p.fill(255, this.fade);
-      this.p.rect(this.p.width / 2 - 50, 3.5 * CELL_SIZE, 100, 2 * CELL_SIZE);
+      this.p.rect(this.p.width / 2 - 55, 3.5 * CELL_SIZE, 110, 2 * CELL_SIZE);
 
       if (this.fade > 255) {
         this.fadeFactor *= -1;
