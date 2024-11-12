@@ -8,7 +8,7 @@ class SPA {
 
   async init() {
     // Check initial URL hash
-    const initialPage = window.location.hash.slice(1) || 'calibration';
+    const initialPage = window.location.hash.slice(1) || 'domains';
     await this.navigate(initialPage);
   }
 
@@ -59,6 +59,11 @@ class SPA {
     links.forEach((link) => {
       link.onclick = (event) => {
         event.preventDefault();
+
+        if (link.dataset.value) {
+          domain = link.dataset.value;
+        }
+
         const page = link.dataset.link;
         this.navigate(page);
       };
@@ -70,6 +75,7 @@ var audioContext = null;
 var meter = null;
 const CELL_SIZE = 30;
 const calibrationBlows = [];
+let domain;
 let spa;
 
 document.addEventListener('DOMContentLoaded', () => {
