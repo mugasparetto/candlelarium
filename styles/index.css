@@ -38,7 +38,7 @@ a:visited {
   top: 5.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width:20rem;
+  width:21rem;
   text-align: center;
 }
 
@@ -49,6 +49,7 @@ a:visited {
   left: 50%;
   width: 100vw;
   transform: translate(-50%, -50%);
+  transition: opacity 1s ease;
 }
 
 .calibration-cta.higher {

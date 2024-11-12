@@ -63,35 +63,47 @@ function startCalibration(event) {
         audioStream(stream);
         const link = document.querySelector('a');
         link.removeEventListener('click', startCalibration);
-        link.remove();
 
-        const div = document.querySelector('.calibration-cta');
-        div.classList.add('higher');
-        div.innerHTML =
-          '<small>three breaths connect us deeper<br />each blow into the screen gets<br />you closer to the oracle</small>';
+        const oldDiv = document.querySelector('#initial-cta');
+        oldDiv.style.opacity = 0;
+        oldDiv.addEventListener('transitionend', addCanvas);
 
-        const canvasWraper = document.createElement('div');
-        canvasWraper.id = 'calibration-canvas';
-        document.querySelector('.content').appendChild(canvasWraper);
+        async function addCanvas() {
+          oldDiv.removeEventListener('transitionend', addCanvas);
+          oldDiv.remove();
 
-        const module = await import(`../../p5/sketches/calibrationSketch.js`);
+          const newDiv = document.createElement('div');
+          newDiv.classList.add('calibration-cta');
+          newDiv.classList.add('higher');
+          newDiv.style.animation = "fadeIn 1s"
+          newDiv.innerHTML =
+            '<small>three breaths connect us deeper<br />each blow into the screen gets<br />you closer to the oracle</small>';
+          document.querySelector('.content').appendChild(newDiv);
 
-        new p5(
-          (p) => (calibrationSketch = new module.CalibrationSketch(p)),
-          'calibration-canvas'
-        );
+          const canvasWraper = document.createElement('div');
+          canvasWraper.id = 'calibration-canvas';
+          canvasWraper.style.animation = "fadeIn 1s"
+          document.querySelector('.content').appendChild(canvasWraper);
 
-        const blowClass = document.createElement('script');
-        blowClass.src = '../../p5/classes/wave.js';
-        document.head.appendChild(blowClass);
+          const module = await import(`../../p5/sketches/calibrationSketch.js`);
 
-        const candleClass = document.createElement('script');
-        candleClass.src = '../../p5/classes/candle.js';
-        document.head.appendChild(candleClass);
+          new p5(
+            (p) => (calibrationSketch = new module.CalibrationSketch(p)),
+            'calibration-canvas'
+          );
 
-        document.addEventListener('signal', handleSignal);
-        document.addEventListener('speechstop', handleBlowSucceeded);
-        document.addEventListener('speechabort', handleAbortedBlow);
+          const blowClass = document.createElement('script');
+          blowClass.src = '../../p5/classes/wave.js';
+          document.head.appendChild(blowClass);
+
+          const candleClass = document.createElement('script');
+          candleClass.src = '../../p5/classes/candle.js';
+          document.head.appendChild(candleClass);
+
+          document.addEventListener('signal', handleSignal);
+          document.addEventListener('speechstop', handleBlowSucceeded);
+          document.addEventListener('speechabort', handleAbortedBlow);
+        }
       })
       .catch(didntGetStream);
   } catch (e) {
