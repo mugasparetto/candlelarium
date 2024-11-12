@@ -28,7 +28,7 @@ export function init() {
   document.head.appendChild(audioStream);
 
   const p5 = document.createElement('script');
-  p5.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js';
+  p5.src = './js/p5.min.js';
   document.head.appendChild(p5);
 }
 
@@ -75,34 +75,40 @@ function startCalibration(event) {
           const newDiv = document.createElement('div');
           newDiv.classList.add('calibration-cta');
           newDiv.classList.add('higher');
-          newDiv.style.animation = "fadeIn 1s"
+          newDiv.style.animation = 'fadeIn 1s';
           newDiv.innerHTML =
             '<small>three breaths connect us deeper<br />each blow into the screen gets<br />you closer to the oracle</small>';
           document.querySelector('.content').appendChild(newDiv);
 
           const canvasWraper = document.createElement('div');
           canvasWraper.id = 'calibration-canvas';
-          canvasWraper.style.animation = "fadeIn 1s"
+          canvasWraper.style.animation = 'fadeIn 1s';
           document.querySelector('.content').appendChild(canvasWraper);
 
-          const module = await import(`../../p5/sketches/calibrationSketch.js`);
+          try {
+            const module = await import(
+              `../../p5/sketches/calibrationSketch.js`
+            );
 
-          new p5(
-            (p) => (calibrationSketch = new module.CalibrationSketch(p)),
-            'calibration-canvas'
-          );
+            new p5(
+              (p) => (calibrationSketch = new module.CalibrationSketch(p)),
+              'calibration-canvas'
+            );
 
-          const blowClass = document.createElement('script');
-          blowClass.src = '../../p5/classes/wave.js';
-          document.head.appendChild(blowClass);
+            const blowClass = document.createElement('script');
+            blowClass.src = '../../p5/classes/wave.js';
+            document.head.appendChild(blowClass);
 
-          const candleClass = document.createElement('script');
-          candleClass.src = '../../p5/classes/candle.js';
-          document.head.appendChild(candleClass);
+            const candleClass = document.createElement('script');
+            candleClass.src = '../../p5/classes/candle.js';
+            document.head.appendChild(candleClass);
 
-          document.addEventListener('signal', handleSignal);
-          document.addEventListener('speechstop', handleBlowSucceeded);
-          document.addEventListener('speechabort', handleAbortedBlow);
+            document.addEventListener('signal', handleSignal);
+            document.addEventListener('speechstop', handleBlowSucceeded);
+            document.addEventListener('speechabort', handleAbortedBlow);
+          } catch (error) {
+            alert(error);
+          }
         }
       })
       .catch(didntGetStream);
