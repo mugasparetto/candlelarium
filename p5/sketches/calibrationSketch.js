@@ -9,6 +9,9 @@ export class CalibrationSketch {
     this.shouldFade = false;
     this.fade = 0;
     this.fadeFactor = 20;
+    this.shouldInitialFade = true;
+    this.initialFade = 255;
+    this.initialDelay = 10;
     // TODO: change to 3
     this.maxBlowCount = 3;
 
@@ -22,20 +25,15 @@ export class CalibrationSketch {
     this.p.createCanvas(w, 9 * CELL_SIZE);
     this.p.textAlign(this.p.CENTER);
     this.p.noStroke();
-    this.p.fill(0);
     this.p.textSize(CELL_SIZE);
     this.p.textFont('Courier New');
-    this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('✨️         ✨️', 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
-    this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.background(255);
   }
 
   draw() {
     this.p.background(255);
+
+    if(this.p.frameCount > this.initialDelay) {
     this.p.fill(0);
     this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
     this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
@@ -44,8 +42,9 @@ export class CalibrationSketch {
     this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
     this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
     this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
+    }
 
-    if (this.isBlowing) {
+    if (this.isBlowing && !this.shouldInitialFade) {
       this.waves.push(new BlowWave(this.p));
     }
 
@@ -88,6 +87,15 @@ export class CalibrationSketch {
       this.waves[this.waves.length - 1].y < 4 * CELL_SIZE
     ) {
       this.updateCount();
+    }
+
+    if (this.shouldInitialFade && this.p.frameCount > this.initialDelay) {
+      this.p.fill(255,this.initialFade);
+      this.p.rect(0,0,this.p.width, this.p.height);
+      this.initialFade -= 20;
+      if(this.initialFade < 0) {
+        this.shouldInitialFade = false;
+      }
     }
   }
 

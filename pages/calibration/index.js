@@ -82,7 +82,6 @@ function startCalibration(event) {
 
           const canvasWraper = document.createElement('div');
           canvasWraper.id = 'calibration-canvas';
-          canvasWraper.style.animation = 'fadeIn 1s';
           document.querySelector('.content').appendChild(canvasWraper);
 
           try {
