@@ -38,7 +38,7 @@ a:visited {
   top: 5.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width:21rem;
+  width: 21rem;
   text-align: center;
 }
 
@@ -66,6 +66,10 @@ a:visited {
 }
 
 .enter-oracle {
+  position: absolute;
+  top: 0;
+  right: 27%;
+  transform: translateX(50%);
   white-space: nowrap;
   animation: fadeIn 1s;
 }

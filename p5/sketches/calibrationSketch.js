@@ -62,10 +62,6 @@ export class CalibrationSketch {
         const link = this.p.createA('#', '<small>~> enter the oracle</small>');
         link.addClass('enter-oracle');
         link.attribute('data-link', 'domains');
-        link.elt.style.position = 'absolute';
-        link.elt.style.top = '0';
-        link.elt.style.right = '27%';
-        link.elt.style.transform = 'translateX(50%)';
         spa.handleLinks();
         this.shouldFade = false;
       }
