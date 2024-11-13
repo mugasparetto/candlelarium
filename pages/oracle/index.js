@@ -1,22 +1,23 @@
-// pages/domains.js
-export function init() {
+// pages/oracle.js
+let introSketch;
+
+export async function init() {
   spa.handleLinks();
-  console.log(domain);
-  document.addEventListener('signal', handleSignal);
-  document.addEventListener('speechstop', handleStop);
-}
 
-export function cleanup() {}
+  const canvasWraper = document.createElement('div');
+  canvasWraper.id = 'intro-canvas';
+  document.querySelector('.content').appendChild(canvasWraper);
 
-function handleSignal(event) {
-  const dBV = dB(event.detail.volume);
-  console.log(dBV);
+  try {
+    const module = await import(`../../p5/sketches/oracleIntroSketch.js`);
 
-  if (dBV >= BLOW_THRESHOLD) {
-    document.querySelector('#debug').textContent = 'blow';
+    new p5(
+      (p) => (introSketch = new module.OracleIntroSketch(p)),
+      'intro-canvas'
+    );
+  } catch (error) {
+    alert(error);
   }
 }
 
-function handleStop(event) {
-  document.querySelector('#debug').textContent = 'not blow';
-}
+export function cleanup() {}
