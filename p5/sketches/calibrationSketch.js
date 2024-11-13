@@ -52,7 +52,7 @@ export class CalibrationSketch {
     if (this.shouldFade) {
       this.fade += this.fadeFactor;
       this.p.fill(255, this.fade);
-      this.p.rect(this.p.width / 2 - 55, 3.5 * CELL_SIZE, 110, 2 * CELL_SIZE);
+      this.p.rect(this.p.width / 2 - 55, 3.5 * CELL_SIZE, 100, 2 * CELL_SIZE);
 
       if (this.fade > 255) {
         this.fadeFactor *= -1;
@@ -98,7 +98,7 @@ export class CalibrationSketch {
   updateCount() {
     this.countString = new Array(this.blowCount).fill('🕯️').join('');
     if (this.blowCount >= this.maxBlowCount) {
-      BLOW_THRESHOLD = Math.min(...calibrationBlows);
+      // BLOW_THRESHOLD = Math.min(...calibrationBlows);
       setTimeout(() => {
         this.shouldFade = true;
       }, 1000);
