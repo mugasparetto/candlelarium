@@ -93,8 +93,8 @@ a:visited {
   justify-content: center;
   text-align: center;
 
-  flex: 0 0 calc(50% - 1rem);
-  min-width: 9rem;
+  flex: 0 0 calc(50% - 1.5rem);
+  min-width: 8rem;
   max-width: 14rem;
   height: 13vh;
   max-height: 10rem;
