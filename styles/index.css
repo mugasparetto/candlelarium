@@ -52,7 +52,7 @@ a:visited {
   top: 5.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 25rem;
+  width: 100vw;
   text-align: center;
 }
 
