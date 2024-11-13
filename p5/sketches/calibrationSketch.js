@@ -92,11 +92,13 @@ export class CalibrationSketch {
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
         setTimeout(() => {
-          const span = this.p.createSpan(
-            '<small>add more energy to unlock the way</small>'
-          );
-          span.addClass('calibration-hint');
-          span.elt.style.opacity = 1;
+          if (this.blowCount === 0) {
+            const span = this.p.createSpan(
+              '<small>add more energy to unlock the way</small>'
+            );
+            span.addClass('calibration-hint');
+            span.elt.style.opacity = 1;
+          }
         }, 5000);
       }
     }
