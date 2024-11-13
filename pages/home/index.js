@@ -3,12 +3,8 @@ export function init() {
   spa.handleLinks();
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-    document.querySelector('main').style.fontSize = '2.4vw';
-  }
-
   if (/android/i.test(userAgent)) {
-    document.querySelector('main').style.left = '54.5%';
+    document.querySelector('.home-art').style.left = '52.5%';
   }
 }
 
