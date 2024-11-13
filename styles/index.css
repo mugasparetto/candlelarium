@@ -79,6 +79,16 @@ a:visited {
   transform: translateX(-50%);
 }
 
+.calibration-hint {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  text-align: center;
+  animation: fadeIn 1s;
+}
+
 .enter-oracle {
   position: absolute;
   top: 0;

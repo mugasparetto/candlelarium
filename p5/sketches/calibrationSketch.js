@@ -91,6 +91,13 @@ export class CalibrationSketch {
       this.initialFade -= 20;
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
+        setTimeout(() => {
+          const span = this.p.createSpan(
+            '<small>add more energy to unlock the way</small>'
+          );
+          span.addClass('calibration-hint');
+          span.elt.style.opacity = 1;
+        }, 5000);
       }
     }
   }
@@ -102,7 +109,7 @@ export class CalibrationSketch {
       BLOW_THRESHOLD = minValue > -10 ? -10 : minValue;
       setTimeout(() => {
         this.shouldFade = true;
-      }, 1000);
+      }, 700);
     }
   }
 
@@ -110,6 +117,10 @@ export class CalibrationSketch {
     if (this.blowCount < this.maxBlowCount) {
       this.isBlowing = true;
       this.finishedBlowing = false;
+      const span = document.querySelector('.calibration-hint');
+      if (span) {
+        span.remove();
+      }
     }
   }
 
