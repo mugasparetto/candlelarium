@@ -15,8 +15,11 @@ export async function init() {
       (p) => (introSketch = new module.OracleIntroSketch(p)),
       'intro-canvas'
     );
+    introSketch.finish = () => {
+      canvasWraper.remove();
+    };
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 }
 
