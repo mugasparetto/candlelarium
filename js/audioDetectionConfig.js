@@ -155,4 +155,4 @@ const DEFAULT_PARAMETERS_CONFIGURATION = {
 
 const dB = (signal) => -Math.round(20 * Math.log10(1 / signal));
 
-let BLOW_THRESHOLD = -15;
+let BLOW_THRESHOLD = -17;

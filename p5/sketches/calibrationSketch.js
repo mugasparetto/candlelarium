@@ -98,7 +98,7 @@ export class CalibrationSketch {
   updateCount() {
     this.countString = new Array(this.blowCount).fill('🕯️').join('');
     if (this.blowCount >= this.maxBlowCount) {
-      // BLOW_THRESHOLD = Math.min(...calibrationBlows);
+      BLOW_THRESHOLD = Math.min(...calibrationBlows);
       setTimeout(() => {
         this.shouldFade = true;
       }, 1000);
