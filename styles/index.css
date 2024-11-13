@@ -29,6 +29,18 @@ main {
   justify-content: center;
 }
 
+#fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity 1s ease;
+}
+
 .home-art {
   position: absolute;
   top: 0;

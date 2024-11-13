@@ -41,16 +41,26 @@ class SPA {
     // Load new page content and module
     const { htmlContent, pageModule } = await this.loadPage(pageName);
 
-    // Update DOM
-    this.appContainer.innerHTML = htmlContent;
+    const fadeDiv = document.querySelector('#fade');
 
-    // Initialize new page
-    if (pageModule.init) {
-      pageModule.init();
+    if (fadeDiv.style.opacity === '0') {
+      fadeDiv.style.opacity = 1;
     }
 
-    // Store current page module
-    this.currentPage = pageModule;
+    setTimeout(() => {
+      // Update DOM
+      this.appContainer.innerHTML = htmlContent;
+
+      fadeDiv.style.opacity = 0;
+
+      // Initialize new page
+      if (pageModule.init) {
+        pageModule.init();
+      }
+
+      // Store current page module
+      this.currentPage = pageModule;
+    }, 1000);
   }
 
   handleLinks() {

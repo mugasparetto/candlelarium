@@ -88,7 +88,7 @@ export class CalibrationSketch {
     if (this.shouldInitialFade && this.p.frameCount > this.initialDelay) {
       this.p.fill(255, this.initialFade);
       this.p.rect(0, 0, this.p.width, this.p.height);
-      this.initialFade -= 20;
+      this.initialFade -= 30;
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
         setTimeout(() => {
