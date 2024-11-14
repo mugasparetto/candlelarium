@@ -84,6 +84,8 @@ class SPA {
 var audioContext = null;
 var meter = null;
 const CELL_SIZE = 30;
+const HEALTH_FACTOR = 40;
+const BLOWN_OUT_THRESHOLD = HEALTH_FACTOR * 0.3;
 const calibrationBlows = [];
 let domain;
 let spa;
