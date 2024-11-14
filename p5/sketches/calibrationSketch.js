@@ -92,7 +92,7 @@ export class CalibrationSketch {
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
         setTimeout(() => {
-          if (this.blowCount === 0) {
+          if (this.blowCount === 0 && !this.isBlowing) {
             const span = this.p.createSpan(
               '<small>add more energy to unlock the way</small>'
             );
