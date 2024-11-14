@@ -93,6 +93,7 @@ export class CalibrationSketch {
         this.shouldInitialFade = false;
         setTimeout(() => {
           if (this.blowCount === 0 && !this.isBlowing) {
+            BLOW_THRESHOLD = -18;
             const span = this.p.createSpan(
               '<small>add more energy<br />to unlock<br />the way</small>'
             );
