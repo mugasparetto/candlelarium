@@ -94,7 +94,7 @@ export class CalibrationSketch {
         setTimeout(() => {
           if (this.blowCount === 0 && !this.isBlowing) {
             const span = this.p.createSpan(
-              '<small>add more energy to unlock the way</small>'
+              '<small>add more energy<br />to unlock<br />the way</small>'
             );
             span.addClass('calibration-hint');
             span.elt.style.opacity = 1;
