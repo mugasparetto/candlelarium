@@ -24,6 +24,7 @@ export class CalibrationSketch {
     const w = document.querySelector('#calibration-canvas').offsetWidth;
     this.p.createCanvas(w, 9 * CELL_SIZE);
     this.p.textAlign(this.p.CENTER);
+    this.p.rectMode(this.p.CENTER);
     this.p.noStroke();
     this.p.textSize(CELL_SIZE);
     this.p.textFont('Courier New');
@@ -35,20 +36,20 @@ export class CalibrationSketch {
 
     if (this.p.frameCount > this.initialDelay) {
       this.p.fill(0);
-      this.p.text('🕯️', 0, CELL_SIZE, this.p.width, CELL_SIZE);
-      this.p.text('✨️   ✨️', 0, 2 * CELL_SIZE, this.p.width, CELL_SIZE);
-      this.p.text('🕯️      🕯️️', 0, 3 * CELL_SIZE, this.p.width, CELL_SIZE);
-      this.p.text('✨️         ✨️', 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
-      this.p.text('🕯️      🕯️️', 0, 5 * CELL_SIZE, this.p.width, CELL_SIZE);
-      this.p.text('✨️   ✨️', 0, 6 * CELL_SIZE, this.p.width, CELL_SIZE);
-      this.p.text('🕯️', 0, 7 * CELL_SIZE, this.p.width, CELL_SIZE);
+      this.p.text('🕯️', this.p.width / 2, 1.5 * CELL_SIZE);
+      this.p.text('✨️   ✨️', this.p.width / 2, 2.5 * CELL_SIZE);
+      this.p.text('🕯️      🕯️️', this.p.width / 2, 3.5 * CELL_SIZE);
+      this.p.text('✨️         ✨️', this.p.width / 2, 4.5 * CELL_SIZE);
+      this.p.text('🕯️      🕯️️', this.p.width / 2, 5.5 * CELL_SIZE);
+      this.p.text('✨️   ✨️', this.p.width / 2, 6.5 * CELL_SIZE);
+      this.p.text('🕯️', this.p.width / 2, 7.5 * CELL_SIZE);
     }
 
     if (this.isBlowing && !this.shouldInitialFade) {
       this.waves.push(new BlowWave(this.p));
     }
 
-    this.p.text(this.countString, 0, 4 * CELL_SIZE, this.p.width, CELL_SIZE);
+    this.p.text(this.countString, this.p.width / 2, 4.5 * CELL_SIZE);
     if (this.shouldFade) {
       this.fade += this.fadeFactor;
       this.p.fill(255, this.fade);
@@ -87,7 +88,12 @@ export class CalibrationSketch {
 
     if (this.shouldInitialFade && this.p.frameCount > this.initialDelay) {
       this.p.fill(255, this.initialFade);
-      this.p.rect(0, 0, this.p.width, this.p.height);
+      this.p.rect(
+        this.p.width / 2,
+        this.p.height / 2,
+        this.p.width,
+        this.p.height
+      );
       this.initialFade -= 30;
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
