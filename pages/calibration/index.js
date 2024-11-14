@@ -1,8 +1,9 @@
 // pages/calibration.js
 let calibrationSketch;
 let maxDB = -40;
+let sketchModule;
 
-export function init() {
+export async function init() {
   // cleanin up home in here to prevent bugs
   document.querySelector('main').removeAttribute('style');
   document.querySelector('body').removeAttribute('style');
@@ -31,6 +32,20 @@ export function init() {
   const p5 = document.createElement('script');
   p5.src = './js/p5.min.js';
   document.head.appendChild(p5);
+
+  const blowClass = document.createElement('script');
+  blowClass.src = '../../p5/classes/wave.js';
+  document.head.appendChild(blowClass);
+
+  const candleClass = document.createElement('script');
+  candleClass.src = '../../p5/classes/candle.js';
+  document.head.appendChild(candleClass);
+
+  try {
+    sketchModule = await import(`../../p5/sketches/calibrationSketch.js`);
+  } catch (error) {
+    alert(error);
+  }
 }
 
 export function cleanup() {
@@ -69,7 +84,7 @@ function startCalibration(event) {
         oldDiv.style.opacity = 0;
         oldDiv.addEventListener('transitionend', addCanvas);
 
-        async function addCanvas() {
+        function addCanvas() {
           oldDiv.removeEventListener('transitionend', addCanvas);
           oldDiv.remove();
 
@@ -85,30 +100,14 @@ function startCalibration(event) {
           canvasWraper.id = 'calibration-canvas';
           document.querySelector('.content').appendChild(canvasWraper);
 
-          try {
-            const module = await import(
-              `../../p5/sketches/calibrationSketch.js`
-            );
+          new p5(
+            (p) => (calibrationSketch = new sketchModule.CalibrationSketch(p)),
+            'calibration-canvas'
+          );
 
-            new p5(
-              (p) => (calibrationSketch = new module.CalibrationSketch(p)),
-              'calibration-canvas'
-            );
-
-            const blowClass = document.createElement('script');
-            blowClass.src = '../../p5/classes/wave.js';
-            document.head.appendChild(blowClass);
-
-            const candleClass = document.createElement('script');
-            candleClass.src = '../../p5/classes/candle.js';
-            document.head.appendChild(candleClass);
-
-            document.addEventListener('signal', handleSignal);
-            document.addEventListener('speechstop', handleBlowSucceeded);
-            document.addEventListener('speechabort', handleAbortedBlow);
-          } catch (error) {
-            alert(error);
-          }
+          document.addEventListener('signal', handleSignal);
+          document.addEventListener('speechstop', handleBlowSucceeded);
+          document.addEventListener('speechabort', handleAbortedBlow);
         }
       })
       .catch(didntGetStream);
