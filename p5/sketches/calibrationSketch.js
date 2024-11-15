@@ -120,7 +120,7 @@ export class CalibrationSketch {
     if (
       this.finishedBlowing &&
       this.waves.length > 0 &&
-      this.waves[this.waves.length - 1].y < 4 * CELL_SIZE
+      this.waves[this.waves.length - 1].y < 5 * CELL_SIZE
     ) {
       this.updateCount();
     }
