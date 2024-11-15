@@ -12,8 +12,8 @@ export class CalibrationSketch {
     this.shouldInitialFade = true;
     this.initialFade = 255;
     this.initialDelay = 10;
-    // TODO: change to 3
     this.maxBlowCount = 3;
+    this.ascents = {};
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
@@ -26,9 +26,15 @@ export class CalibrationSketch {
     this.p.textAlign(this.p.CENTER);
     this.p.rectMode(this.p.CENTER);
     this.p.noStroke();
-    this.p.textSize(CELL_SIZE);
+    this.p.textSize(CELL_SIZE - 5);
     this.p.textFont('Courier New');
     this.p.background(255);
+
+    this.p.noFill();
+    this.p.text('🕯️', this.width / 2, 1.5 * CELL_SIZE);
+    this.ascents.candle = this.p.textAscent();
+    this.p.text('✨️', this.width / 2 - CELL_SIZE, 2.5 * CELL_SIZE);
+    this.ascents.sparkle = this.p.textAscent();
   }
 
   draw() {
@@ -36,24 +42,57 @@ export class CalibrationSketch {
 
     if (this.p.frameCount > this.initialDelay) {
       this.p.fill(0);
-      this.p.text('🕯️', this.p.width / 2, 1.5 * CELL_SIZE);
-      this.p.text('✨️   ✨️', this.p.width / 2, 2.5 * CELL_SIZE);
-      this.p.text('🕯️      🕯️️', this.p.width / 2, 3.5 * CELL_SIZE);
-      this.p.text('✨️         ✨️', this.p.width / 2, 4.5 * CELL_SIZE);
-      this.p.text('🕯️      🕯️️', this.p.width / 2, 5.5 * CELL_SIZE);
-      this.p.text('✨️   ✨️', this.p.width / 2, 6.5 * CELL_SIZE);
-      this.p.text('🕯️', this.p.width / 2, 7.5 * CELL_SIZE);
+      this.p.text(
+        '🕯️',
+        this.p.width / 2,
+        1.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '✨️     ✨️',
+        this.p.width / 2,
+        2.5 * CELL_SIZE + 0.45 * this.ascents.sparkle
+      );
+      this.p.text(
+        '🕯️        🕯️️',
+        this.p.width / 2,
+        3.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '✨️           ✨️',
+        this.p.width / 2,
+        4.5 * CELL_SIZE + 0.45 * this.ascents.sparkle
+      );
+      this.p.text(
+        '🕯️        🕯️️',
+        this.p.width / 2,
+        5.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '✨️     ✨️',
+        this.p.width / 2,
+        6.5 * CELL_SIZE + 0.45 * this.ascents.sparkle
+      );
+      this.p.text(
+        '🕯️',
+        this.p.width / 2,
+        7.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
     }
 
     if (this.isBlowing && !this.shouldInitialFade) {
       this.waves.push(new BlowWave(this.p));
     }
 
-    this.p.text(this.countString, this.p.width / 2, 4.5 * CELL_SIZE);
+    this.p.fill(0);
+    this.p.text(
+      this.countString,
+      this.p.width / 2,
+      4.5 * CELL_SIZE + 0.45 * this.ascents.candle
+    );
     if (this.shouldFade) {
       this.fade += this.fadeFactor;
       this.p.fill(255, this.fade);
-      this.p.rect(this.p.width / 2 - 55, 3.5 * CELL_SIZE, 100, 2 * CELL_SIZE);
+      this.p.rect(this.p.width / 2, 4.5 * CELL_SIZE, 100, 2 * CELL_SIZE);
 
       if (this.fade > 255) {
         this.fadeFactor *= -1;
