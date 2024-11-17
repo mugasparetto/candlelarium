@@ -9,9 +9,29 @@ export async function init() {
       (p) => (candlesSketch = new module.CandlesSketch(p)),
       'candles-canvas'
     );
+
+    document.addEventListener('signal', handleSignal);
+    document.addEventListener('speechstop', handleBlowSucceeded);
+    document.addEventListener('speechabort', handleAbortedBlow);
   } catch (error) {
     console.log(error);
   }
 }
 
 export function cleanup() {}
+
+function handleSignal(event) {
+  const dBV = dB(event.detail.volume);
+
+  if (dBV >= BLOW_THRESHOLD) {
+    candlesSketch.startBlow();
+  }
+}
+
+function handleBlowSucceeded() {
+  candlesSketch.endBlow();
+}
+
+function handleAbortedBlow() {
+  candlesSketch.isBlowing = false;
+}

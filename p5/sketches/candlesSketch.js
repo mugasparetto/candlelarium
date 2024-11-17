@@ -2,10 +2,15 @@ export class CandlesSketch {
   constructor(p) {
     this.p = p;
     this.waves = [];
-    this.ascents = {};
     this.shouldInitialFade = true;
     this.initialFade = 255;
     this.initialDelay = 10;
+    this.isBlowing = false;
+    this.finishedBlowing = false;
+
+    this.rows = 8;
+    this.cols = 8;
+    this.candles = [];
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
@@ -23,16 +28,54 @@ export class CandlesSketch {
     this.p.textSize(CELL_SIZE - 5);
     this.p.textFont('Courier New');
 
-    this.p.noFill();
-    this.p.text('🕯️', this.width / 2, 1.5 * CELL_SIZE);
-    this.ascents.candle = this.p.textAscent();
+    const topPadding = 1.5 * CELL_SIZE;
+    const leftPadding =
+      (this.p.width - this.cols * CELL_SIZE) / 2 + CELL_SIZE / 2;
+    const noiseLevel = 1.5 * HEALTH_FACTOR;
+    let noiseScale = 1;
+
+    for (var i = 0; i < this.cols; i++) {
+      this.candles[i] = [];
+      for (var j = 0; j < this.rows; j++) {
+        const nx = noiseScale * i;
+        const ny = noiseScale * j;
+        const h = noiseLevel * this.p.noise(nx, ny);
+
+        this.candles[i].push(
+          new Candle(
+            this.p,
+            leftPadding + i * CELL_SIZE,
+            topPadding + j * CELL_SIZE,
+            HEALTH_FACTOR / 2 + h
+          )
+        );
+      }
+    }
   }
 
   draw() {
     this.p.background(0);
 
     if (this.p.frameCount > this.initialDelay) {
-      this.p.fill(0);
+      this.candles.forEach(function (row) {
+        row.forEach(function (c) {
+          c.show();
+        });
+      });
+    }
+
+    if (this.isBlowing && !this.shouldInitialFade) {
+      this.waves.push(new BlowWave(this.p));
+    }
+
+    for (var i = this.waves.length - 1; i >= 0; i--) {
+      const wave = this.waves[i];
+      wave.show();
+      wave.update();
+
+      if (wave.isOut) {
+        this.waves.splice(i, 1);
+      }
     }
 
     if (this.shouldInitialFade && this.p.frameCount > this.initialDelay) {
@@ -47,6 +90,18 @@ export class CandlesSketch {
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
       }
+    }
+  }
+
+  startBlow() {
+    this.isBlowing = true;
+    this.finishedBlowing = false;
+  }
+
+  endBlow() {
+    if (this.isBlowing && !this.finishedBlowing) {
+      this.isBlowing = false;
+      this.finishedBlowing = true;
     }
   }
 }

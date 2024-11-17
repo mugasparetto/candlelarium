@@ -1,5 +1,5 @@
 class Candle {
-  constructor(p, x, y, health, i, j) {
+  constructor(p, x, y, health) {
     this.p = p;
     this.x = x;
     this.y = y;
@@ -7,22 +7,17 @@ class Candle {
     this.initialHealth = health;
     this.updateColor();
     this.blownOut = false;
-    this.i = i;
-    this.j = j;
     this.resetCount = 2 + Math.floor(this.p.random(4));
-    this.p.textSize(9);
+
+    this.p.noFill();
+    this.p.text('🕯️', this.width / 2, this.y);
+    this.a = this.p.textAscent();
   }
 
   show() {
     if (!this.blownOut) {
-      this.updateColor();
-      this.p.fill(this.color);
-      this.p.stroke(0);
-      this.p.ellipse(this.x, this.y, CELL_SIZE, CELL_SIZE);
       this.p.fill(255);
-      this.p.noStroke();
-      this.p.text(Math.floor(this.health), this.x - 10, this.y - 3);
-      this.p.text(`${this.i}; ${this.j}`, this.x - 10, this.y + 7);
+      this.p.text('🕯️', this.x, this.y + 0.45 * this.a);
     }
   }
 
