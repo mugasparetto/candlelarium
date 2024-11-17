@@ -82,6 +82,10 @@ a:visited {
   text-align: center;
 }
 
+.dark .header {
+  color: white;
+}
+
 .calibration-cta {
   text-align: center;
   position: absolute;
