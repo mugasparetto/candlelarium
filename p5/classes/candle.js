@@ -17,6 +17,14 @@ class Candle {
   show() {
     if (!this.blownOut) {
       this.p.fill(255);
+      // this.p.textSize(CELL_SIZE - 5);
+      this.p.text('🕯️', this.x, this.y + 0.45 * this.a);
+      // this.p.fill(255);
+      // this.p.textSize(12);
+      // this.p.text(Math.floor(this.health), this.x - 10, this.y - 3);
+    } else {
+      this.p.fill(255, 51);
+      // this.p.textSize(CELL_SIZE - 5);
       this.p.text('🕯️', this.x, this.y + 0.45 * this.a);
     }
   }

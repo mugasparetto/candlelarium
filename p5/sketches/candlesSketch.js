@@ -80,8 +80,30 @@ export class CandlesSketch {
       wave.show();
       wave.update();
 
+      for (let y = 0; y < this.rows; y++) {
+        if (this.candles[0][y].checkCollision(wave)) {
+          for (let x = 0; x < this.cols; x++) {
+            this.candles[x][y].calculateAttack(wave.strength);
+          }
+        }
+      }
+
       if (wave.isOut) {
         this.waves.splice(i, 1);
+      }
+    }
+
+    if (this.finishedBlowing) {
+      if (this.waves.length > 0) {
+        for (let y = 0; y < this.rows; y++) {
+          if (
+            this.candles[0][y].checkCollision(this.waves[this.waves.length - 1])
+          ) {
+            for (let x = 0; x < this.cols; x++) {
+              this.candles[x][y].blowCandleOut();
+            }
+          }
+        }
       }
     }
 
