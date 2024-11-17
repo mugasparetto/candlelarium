@@ -43,6 +43,7 @@ main {
   height: 100vh;
   pointer-events: none;
   z-index: 100;
+  background-color: white;
   transition: opacity 1s ease;
 }
 
@@ -80,10 +81,6 @@ a:visited {
   transform: translateX(-50%);
   width: 100vw;
   text-align: center;
-}
-
-.dark .header {
-  color: white;
 }
 
 .calibration-cta {

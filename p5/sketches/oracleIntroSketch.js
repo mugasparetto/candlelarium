@@ -48,6 +48,8 @@ export class OracleIntroSketch {
       if (stream.symbols[stream.symbols.length - 1].y <= this.p.height) {
         shouldFinish = false;
       }
+
+      this.p.text(this.p.frameRate(), 30, this.p.height - 80);
     });
 
     if (shouldFinish) {
