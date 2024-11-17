@@ -34,4 +34,5 @@ function handleBlowSucceeded() {
 
 function handleAbortedBlow() {
   candlesSketch.isBlowing = false;
+  candlesSketch.showHint();
 }
