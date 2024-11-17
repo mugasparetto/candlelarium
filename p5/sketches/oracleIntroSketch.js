@@ -49,11 +49,11 @@ export class OracleIntroSketch {
         (this.p.frameCount - this.blink) / this.fadeDuration
       );
       this.p.background(c);
-
-      const body = document.querySelector('body');
-      if (!body.classList.contains('dark')) {
-        body.classList.add('dark');
-      }
+      document.querySelector('body').style.backgroundColor = this.rgbToHex(
+        this.p.red(c),
+        this.p.green(c),
+        this.p.blue(c)
+      );
 
       if (
         this.shouldAbort &&
@@ -81,6 +81,10 @@ export class OracleIntroSketch {
         this.finish();
       }
     }
+  }
+
+  rgbToHex(r, g, b) {
+    return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
   }
 }
 

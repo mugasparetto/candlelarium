@@ -18,7 +18,6 @@ body {
   background-color: #ffffff;
   color: #000000;
   overflow: hidden;
-  transition: background-color 1.45s ease;
 }
 
 .dark {
