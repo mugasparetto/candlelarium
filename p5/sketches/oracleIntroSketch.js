@@ -5,6 +5,7 @@ export class OracleIntroSketch {
   constructor(p) {
     this.p = p;
     this.streams = [];
+    this.showedPoem = false;
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
@@ -31,16 +32,25 @@ export class OracleIntroSketch {
   draw() {
     this.p.background(255);
     let shouldFinish = true;
+    let shouldShowPoem = true;
 
     this.streams.forEach((stream) => {
       stream.render();
       if (stream.symbols[stream.symbols.length - 1].y <= this.p.height) {
         shouldFinish = false;
       }
+      if (stream.symbols[stream.symbols.length - 1].y <= this.p.height / 2) {
+        shouldShowPoem = false;
+      }
     });
 
     if (shouldFinish) {
       this.finish();
+    }
+
+    if (shouldShowPoem && !this.showedPoem) {
+      this.showPoem();
+      this.showedPoem = true;
     }
   }
 }
