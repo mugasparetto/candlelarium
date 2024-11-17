@@ -144,7 +144,6 @@ export class CalibrationSketch {
               '<small>add more energy<br />to unlock<br />the way</small>'
             );
             span.addClass('calibration-hint');
-            span.elt.style.opacity = 1;
           }
         }, 5000);
       }

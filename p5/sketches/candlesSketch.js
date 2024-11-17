@@ -119,6 +119,16 @@ export class CandlesSketch {
         } else {
           if (this.blowCount > 0) {
             this.blowCount--;
+            const span = this.p.createSpan(
+              '<small>add more energy to unlock the way</small>'
+            );
+            span.id('hint');
+            span.position(0, window.innerHeight - 3 * CELL_SIZE);
+            span.elt.style.left = '50%';
+            span.elt.style.transform = 'translateX(-50%)';
+            span.elt.style.width = '80vw';
+            span.elt.style.textAlign = 'center';
+            span.elt.style.animation = 'fadeIn 1s';
           }
         }
       }
@@ -143,6 +153,10 @@ export class CandlesSketch {
     if (this.blowCount < this.maxBlowCount) {
       this.isBlowing = true;
       this.finishedBlowing = false;
+      const hint = this.p.select('#hint');
+      if (hint) {
+        hint.remove();
+      }
     }
   }
 
