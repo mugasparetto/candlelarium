@@ -5,7 +5,8 @@ export class OracleIntroSketch {
   constructor(p) {
     this.p = p;
     this.streams = [];
-    this.showedPoem = false;
+    this.blink = 135;
+    this.fadeDuration = 60;
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
@@ -19,7 +20,7 @@ export class OracleIntroSketch {
 
     var x = 0;
     for (var i = 0; i <= this.p.width / symbolSize; i++) {
-      const stream = new MyStream(this.p);
+      const stream = new MyStream(this.p, this.blink);
       stream.generateSymbols(x, this.p.round(this.p.random(0, -50)));
       this.streams.push(stream);
       x += symbolSize;
@@ -30,7 +31,16 @@ export class OracleIntroSketch {
   }
 
   draw() {
-    this.p.background(255);
+    if (this.p.frameCount > this.blink) {
+      const c = this.p.lerpColor(
+        this.p.color(255),
+        this.p.color(0),
+        (this.p.frameCount - this.blink) / this.fadeDuration
+      );
+      this.p.background(c);
+    } else {
+      this.p.background(255);
+    }
     let shouldFinish = true;
 
     this.streams.forEach((stream) => {
@@ -48,8 +58,9 @@ export class OracleIntroSketch {
 }
 
 class MyStream {
-  constructor(p) {
+  constructor(p, blink) {
     this.p = p;
+    this.blink = blink;
     this.symbols = [];
     this.totalSymbols =
       this.p.ceil(this.p.height / symbolSize) +
@@ -67,8 +78,17 @@ class MyStream {
   }
 
   render() {
-    this.symbols.forEach((symbol) => {
+    if (this.p.frameCount > this.blink) {
+      const c = this.p.lerpColor(
+        this.p.color(0),
+        this.p.color(255),
+        (this.p.frameCount - this.blink) / 60
+      );
+      this.p.fill(c);
+    } else {
       this.p.fill(0);
+    }
+    this.symbols.forEach((symbol) => {
       this.p.text(symbol.value, symbol.x, symbol.y);
       symbol.rain();
       symbol.setToRandomSymbol();

@@ -20,11 +20,15 @@ body {
   overflow: hidden;
 }
 
+.dark {
+  background-color: black;
+  color: white;
+}
+
 main {
   position: relative;
   width: 100vw;
   height: 100vh;
-  /* overflow: hidden; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +46,10 @@ main {
   transition: opacity 1s ease;
 }
 
+.dark #fade {
+  background-color: black;
+}
+
 .home-art {
   position: absolute;
   top: 0;
@@ -52,6 +60,11 @@ main {
 a,
 a:visited {
   color: #0000ee;
+}
+
+.dark a,
+.dark a:visited {
+  color: #eeee00;
 }
 
 .content {
@@ -133,11 +146,11 @@ a:visited {
   max-width: 14rem;
   height: 13vh;
   max-height: 10rem;
-  color: black;
+  color: white !important;
   text-decoration: none;
   position: relative;
 
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='4' stroke-dasharray='2%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='white' stroke-width='4' stroke-dasharray='2%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
 }
 
 #intro-canvas,
