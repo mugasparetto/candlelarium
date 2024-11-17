@@ -7,6 +7,8 @@ export class CandlesSketch {
     this.initialDelay = 3;
     this.isBlowing = false;
     this.finishedBlowing = false;
+    this.blowCount = 0;
+    this.maxBlowCount = 1;
 
     this.rows = 8;
     this.cols = 8;
@@ -104,6 +106,21 @@ export class CandlesSketch {
             }
           }
         }
+      } else {
+        let blownOutCount = 0;
+        for (let y = 0; y < this.rows; y++) {
+          for (let x = 0; x < this.cols; x++) {
+            if (this.candles[x][y].blownOut) blownOutCount++;
+          }
+        }
+        if (blownOutCount > 0) {
+          this.p.noLoop();
+          console.log('acabou');
+        } else {
+          if (this.blowCount > 0) {
+            this.blowCount--;
+          }
+        }
       }
     }
 
@@ -123,14 +140,17 @@ export class CandlesSketch {
   }
 
   startBlow() {
-    this.isBlowing = true;
-    this.finishedBlowing = false;
+    if (this.blowCount < this.maxBlowCount) {
+      this.isBlowing = true;
+      this.finishedBlowing = false;
+    }
   }
 
   endBlow() {
     if (this.isBlowing && !this.finishedBlowing) {
       this.isBlowing = false;
       this.finishedBlowing = true;
+      this.blowCount++;
     }
   }
 }
