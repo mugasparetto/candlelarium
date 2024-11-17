@@ -1,24 +1,7 @@
 // pages/oracle.js
 let candlesSketch;
 
-export function init() {
-  spa.handleLinks();
-  document.querySelector('a').addEventListener('click', startCandles);
-}
-
-export function cleanup() {
-  document.querySelector('a').removeEventListener('click', startCandles);
-}
-
-async function startCandles(event) {
-  event.preventDefault();
-
-  document.querySelector('.poem').style.opacity = 0;
-
-  const canvasWraper = document.createElement('div');
-  canvasWraper.id = 'candles-canvas';
-  document.querySelector('.content').appendChild(canvasWraper);
-
+export async function init() {
   try {
     const module = await import(`../../p5/sketches/candlesSketch.js`);
 
@@ -30,3 +13,5 @@ async function startCandles(event) {
     console.log(error);
   }
 }
+
+export function cleanup() {}
