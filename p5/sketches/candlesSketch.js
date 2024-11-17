@@ -4,7 +4,7 @@ export class CandlesSketch {
     this.waves = [];
     this.shouldInitialFade = true;
     this.initialFade = 255;
-    this.initialDelay = 10;
+    this.initialDelay = 3;
     this.isBlowing = false;
     this.finishedBlowing = false;
 
@@ -28,7 +28,10 @@ export class CandlesSketch {
     this.p.textSize(CELL_SIZE - 5);
     this.p.textFont('Courier New');
 
-    const topPadding = 1.5 * CELL_SIZE;
+    const topPadding =
+      this.p.height > 640
+        ? 2.5 * CELL_SIZE + (this.p.height % CELL_SIZE)
+        : 3.5 * CELL_SIZE + (this.p.height % CELL_SIZE);
     const leftPadding =
       (this.p.width - this.cols * CELL_SIZE) / 2 + CELL_SIZE / 2;
     const noiseLevel = 1.5 * HEALTH_FACTOR;
@@ -40,12 +43,16 @@ export class CandlesSketch {
         const nx = noiseScale * i;
         const ny = noiseScale * j;
         const h = noiseLevel * this.p.noise(nx, ny);
+        const y =
+          this.p.height > 640
+            ? topPadding + 2 * j * CELL_SIZE
+            : topPadding + j * CELL_SIZE;
 
         this.candles[i].push(
           new Candle(
             this.p,
             leftPadding + i * CELL_SIZE,
-            topPadding + j * CELL_SIZE,
+            y,
             HEALTH_FACTOR / 2 + h
           )
         );
