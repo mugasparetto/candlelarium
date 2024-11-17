@@ -12,7 +12,8 @@ export class CalibrationSketch {
     this.shouldInitialFade = true;
     this.initialFade = 255;
     this.initialDelay = 10;
-    this.maxBlowCount = 3;
+    // TODO: change below
+    this.maxBlowCount = 1;
     this.ascents = {};
 
     p.setup = () => this.setup();

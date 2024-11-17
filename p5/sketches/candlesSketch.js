@@ -5,6 +5,7 @@ export class CandlesSketch {
     this.shouldInitialFade = true;
     this.initialFade = 0;
     this.initialDelay = 10;
+    this.ascents = {};
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
@@ -21,6 +22,10 @@ export class CandlesSketch {
     this.p.noStroke();
     this.p.textSize(CELL_SIZE - 5);
     this.p.textFont('Courier New');
+
+    this.p.noFill();
+    this.p.text('🕯️', this.width / 2, 1.5 * CELL_SIZE);
+    this.ascents.candle = this.p.textAscent();
   }
 
   draw() {
@@ -47,6 +52,48 @@ export class CandlesSketch {
         this.p.height / 2,
         this.p.width,
         this.p.height
+      );
+
+      this.p.fill(0);
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        5.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        7.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        9.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        11.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        13.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        15.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        17.5 * CELL_SIZE + 0.45 * this.ascents.candle
+      );
+      this.p.text(
+        '🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️  🕯️',
+        this.p.width / 2,
+        19.5 * CELL_SIZE + 0.45 * this.ascents.candle
       );
     }
   }
