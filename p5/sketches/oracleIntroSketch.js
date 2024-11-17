@@ -7,6 +7,9 @@ export class OracleIntroSketch {
     this.streams = [];
     this.blink = 135;
     this.fadeDuration = 60;
+    // Abort sketch if register frameRate < 10 5 times.
+    this.frameRateCount = 0;
+    this.shouldAbort = false;
 
     p.setup = () => this.setup();
     p.draw = () => this.draw();
@@ -31,30 +34,46 @@ export class OracleIntroSketch {
   }
 
   draw() {
-    if (this.p.frameCount > this.blink) {
+    if (this.p.frameRate() < 10) {
+      this.frameRateCount++;
+    }
+
+    if (this.frameRateCount >= 3 && !this.shouldAbort) {
+      this.shouldAbort = true;
+    }
+
+    if (this.p.frameCount > this.blink || this.shouldAbort) {
       const c = this.p.lerpColor(
         this.p.color(255),
         this.p.color(0),
         (this.p.frameCount - this.blink) / this.fadeDuration
       );
       this.p.background(c);
+      if (
+        this.shouldAbort &&
+        this.p.frameCount - this.blink > this.fadeDuration
+      ) {
+        this.p.noLoop();
+        this.finish();
+      }
     } else {
       this.p.background(255);
     }
-    let shouldFinish = true;
 
-    this.streams.forEach((stream) => {
-      stream.render();
-      if (stream.symbols[stream.symbols.length - 1].y <= this.p.height) {
-        shouldFinish = false;
+    if (!this.shouldAbort) {
+      let shouldFinish = true;
+
+      this.streams.forEach((stream) => {
+        stream.render();
+        if (stream.symbols[stream.symbols.length - 1].y <= this.p.height) {
+          shouldFinish = false;
+        }
+      });
+
+      if (shouldFinish) {
+        this.p.noLoop();
+        this.finish();
       }
-
-      this.p.text(this.p.frameRate(), 30, this.p.height - 80);
-    });
-
-    if (shouldFinish) {
-      this.p.noLoop();
-      this.finish();
     }
   }
 }
