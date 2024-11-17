@@ -49,6 +49,12 @@ export class OracleIntroSketch {
         (this.p.frameCount - this.blink) / this.fadeDuration
       );
       this.p.background(c);
+
+      const body = document.querySelector('body');
+      if (!body.classList.contains('dark')) {
+        body.classList.add('dark');
+      }
+
       if (
         this.shouldAbort &&
         this.p.frameCount - this.blink > this.fadeDuration
