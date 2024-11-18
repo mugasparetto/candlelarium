@@ -162,7 +162,7 @@ export class CalibrationSketch {
   }
 
   startBlow() {
-    if (this.blowCount < this.maxBlowCount) {
+    if (this.blowCount < this.maxBlowCount && !this.shouldInitialFade) {
       this.isBlowing = true;
       this.finishedBlowing = false;
       const span = document.querySelector('.calibration-hint');

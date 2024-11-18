@@ -93,7 +93,7 @@ function startCalibration(event) {
           newDiv.classList.add('higher');
           newDiv.style.animation = 'fadeIn 1s';
           newDiv.innerHTML =
-            '<small>three breaths connect us deeper<br />each blow into the microphone gets<br />you closer to the oracle</small>';
+            '<small>together, we will fortify our link<br />three blows into the microphone gets<br />you closer to the oracle</small>';
           document.querySelector('.content').appendChild(newDiv);
 
           const canvasWraper = document.createElement('div');

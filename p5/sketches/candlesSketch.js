@@ -117,7 +117,7 @@ export class CandlesSketch {
           this.p.noLoop();
           setTimeout(() => {
             spa.navigate('reading');
-          }, 3500);
+          }, 2500);
         } else {
           if (this.blowCount > 0) {
             this.blowCount--;
