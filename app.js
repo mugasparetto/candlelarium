@@ -8,7 +8,7 @@ class SPA {
 
   async init() {
     // Check initial URL hash
-    const initialPage = window.location.hash.slice(1) || 'calibration';
+    const initialPage = window.location.hash.slice(1) || 'home';
     await this.navigate(initialPage);
   }
 
@@ -84,7 +84,7 @@ class SPA {
 var audioContext = null;
 var meter = null;
 const CELL_SIZE = 30;
-const HEALTH_FACTOR = 35;
+const HEALTH_FACTOR = 32;
 const BLOWN_OUT_THRESHOLD = HEALTH_FACTOR * 0.3;
 const calibrationBlows = [];
 let domain;

@@ -18,7 +18,11 @@ export async function init() {
   }
 }
 
-export function cleanup() {}
+export function cleanup() {
+  document.removeEventListener('signal', handleSignal);
+  document.removeEventListener('speechstop', handleBlowSucceeded);
+  document.removeEventListener('speechabort', handleAbortedBlow);
+}
 
 function handleSignal(event) {
   const dBV = dB(event.detail.volume);

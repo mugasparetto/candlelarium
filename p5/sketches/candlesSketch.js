@@ -115,7 +115,9 @@ export class CandlesSketch {
         }
         if (blownOutCount > 0) {
           this.p.noLoop();
-          console.log('acabou');
+          setTimeout(() => {
+            spa.navigate('reading');
+          }, 3500);
         } else {
           if (this.blowCount > 0) {
             this.blowCount--;
