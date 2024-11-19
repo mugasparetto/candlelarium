@@ -139,5 +139,8 @@ function handleBlowSucceeded() {
 }
 
 function handleAbortedBlow() {
-  calibrationSketch.isBlowing = false;
+  if (calibrationSketch.blowCount < calibrationSketch.maxBlowCount) {
+    calibrationSketch.isBlowing = false;
+    calibrationSketch.showHint();
+  }
 }

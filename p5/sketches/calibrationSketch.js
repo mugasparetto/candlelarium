@@ -138,14 +138,11 @@ export class CalibrationSketch {
       if (this.initialFade < 0) {
         this.shouldInitialFade = false;
         setTimeout(() => {
-          if (this.blowCount === 0 && !this.isBlowing) {
+          if (this.blowCount === 0) {
             BLOW_THRESHOLD = -18;
-            const span = this.p.createSpan(
-              '<small>add more energy<br />to unlock<br />the way</small>'
-            );
-            span.addClass('calibration-hint');
+            this.showHint();
           }
-        }, 5000);
+        }, 3500);
       }
     }
   }
@@ -159,6 +156,13 @@ export class CalibrationSketch {
         this.shouldFade = true;
       }, 700);
     }
+  }
+
+  showHint() {
+    const span = this.p.createSpan(
+      '<small>add more energy<br />to unlock<br />the way</small>'
+    );
+    span.addClass('calibration-hint');
   }
 
   startBlow() {

@@ -37,6 +37,8 @@ function handleBlowSucceeded() {
 }
 
 function handleAbortedBlow() {
-  candlesSketch.isBlowing = false;
-  candlesSketch.showHint();
+  if (candlesSketch.blowCount < candlesSketc.maxBlowCounth) {
+    candlesSketch.isBlowing = false;
+    candlesSketch.showHint();
+  }
 }
