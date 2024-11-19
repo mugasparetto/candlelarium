@@ -8,7 +8,7 @@ class SPA {
 
   async init() {
     // Check initial URL hash
-    const initialPage = window.location.hash.slice(1) || 'reading';
+    const initialPage = window.location.hash.slice(1) || 'home';
     await this.navigate(initialPage);
   }
 
@@ -87,8 +87,9 @@ const CELL_SIZE = 30;
 const HEALTH_FACTOR = 30;
 const BLOWN_OUT_THRESHOLD = HEALTH_FACTOR * 0.3;
 const calibrationBlows = [];
-let domain = 'spirituality';
+let domain;
 let spa;
+let result = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   spa = new SPA();

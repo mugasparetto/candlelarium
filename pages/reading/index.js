@@ -1,15 +1,30 @@
 export async function init() {
+  // MOCKED DATA:
+  // domain = 'physical';
+  // result = [
+  //   [false, false, false, true, false, true, false, false],
+  //   [false, false, false, false, false, false, false, false],
+  //   [false, false, false, false, false, false, true, false],
+  //   [false, false, true, false, false, false, false, false],
+  //   [false, false, false, false, false, false, false, false],
+  //   [false, true, false, false, false, false, true, false],
+  //   [false, false, false, false, false, false, false, false],
+  //   [false, false, false, false, false, false, false, false],
+  // ];
+
   try {
     const response = await fetch(
-      'http://localhost:8888/.netlify/functions/hello',
+      'https://spontaneous-malasada-76fad8.netlify.app/.netlify/functions/getReading',
       {
         method: 'POST',
-        body: JSON.stringify({ domain }),
+        body: JSON.stringify({ domain, result }),
       }
     );
     const data = await response.json();
-    console.log(data);
+    document.querySelector('#debug').textContent = data.reading;
+    console.log(data.reading);
   } catch (error) {
+    document.querySelector('#debug').textContent = error;
     console.log(error);
   }
 }

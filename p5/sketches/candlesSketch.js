@@ -115,6 +115,7 @@ export class CandlesSketch {
         }
         if (blownOutCount > 0) {
           this.p.noLoop();
+          result = this.candles.map((col) => col.map((c) => c.blownOut));
           setTimeout(() => {
             spa.navigate('reading');
           }, 2500);
