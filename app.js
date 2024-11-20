@@ -8,7 +8,7 @@ class SPA {
 
   async init() {
     // Check initial URL hash
-    const initialPage = window.location.hash.slice(1) || 'reading';
+    const initialPage = window.location.hash.slice(1) || 'home';
     await this.navigate(initialPage);
   }
 
