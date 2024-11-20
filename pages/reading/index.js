@@ -5,22 +5,24 @@ export async function init() {
     document.querySelector('.home-art').style.left = '52.5%';
   }
 
+  document.body.classList.add('dark');
+
   // MOCKED DATA:
-  // domain = 'physical';
-  // result = [
-  //   [false, false, false, true, false, true, false, false],
-  //   [false, false, false, false, false, false, false, false],
-  //   [false, false, false, false, false, false, true, false],
-  //   [false, false, true, false, false, false, false, false],
-  //   [false, false, false, false, false, false, false, false],
-  //   [false, true, false, false, false, false, true, false],
-  //   [false, false, false, false, false, false, false, false],
-  //   [false, false, false, false, false, false, false, false],
-  // ];
+  domain = 'physical';
+  result = [
+    [false, false, false, true, false, true, false, false],
+    [false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false],
+    [false, false, true, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false],
+    [false, true, false, false, false, false, true, false],
+    [false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false],
+  ];
 
   try {
     const response = await fetch(
-      'https://spontaneous-malasada-76fad8.netlify.app/.netlify/functions/getReading',
+      'http://localhost:8888/.netlify/functions/getReading',
       {
         method: 'POST',
         body: JSON.stringify({ domain, result }),
