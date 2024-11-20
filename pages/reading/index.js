@@ -30,7 +30,7 @@ export async function init() {
     if (response.status === 200) {
       const data = await response.json();
 
-      showReading(data.reading);
+      showReading(data.reading, true);
     } else {
       showReading(
         'the oracle is still looking for the proper answer. come back later.'
@@ -46,7 +46,7 @@ export async function init() {
 
 export function cleanup() {}
 
-function showReading(content) {
+function showReading(content, link = false) {
   const div = document.createElement('div');
   div.classList.add('content');
   div.innerHTML = `<div class="reading">
@@ -56,5 +56,18 @@ function showReading(content) {
   <span class="corner">✨</span>
   <small>${content}</small>
   </div>`;
+
+  if (link) {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.setAttribute('data-link', 'ending');
+    a.innerHTML = '<small>thank you, oracle</small>';
+    a.classList.add('thank-you');
+    setTimeout(() => {
+      document.querySelector('.reading').appendChild(a);
+      spa.handleLinks();
+    }, 5000);
+  }
+
   document.querySelector('#app').appendChild(div);
 }
