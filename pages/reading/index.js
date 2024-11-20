@@ -29,7 +29,10 @@ export async function init() {
 
     if (response.status === 200) {
       const data = await response.json();
-      localStorage.setItem('ORACLE_READING_TIME', dayjs());
+      localStorage.setItem(
+        'CANDLELARIUM_ORACLE',
+        JSON.stringify({ readingTime: dayjs(), lastReading: data.reading })
+      );
       showReading(data.reading, true);
     } else {
       showReading('the oracle got lost while wondering<br />come back later');

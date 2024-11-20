@@ -248,15 +248,22 @@ a:visited {
   transition: visibility 0s 1s, opacity 1s;
 }
 
-.wait {
+.reading.last {
+  background: white;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='4' stroke-dasharray='10%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+}
+
+.reading.last .corner {
+  background: white;
+}
+
+.reading.last .title {
   position: absolute;
-  width: calc(100vw - 3rem);
-  max-width: 30rem;
-  top: 50%;
-  top: 50dvh;
+  background-color: white;
+  padding: 0.5rem;
+  top: -0.75rem;
   left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  transform: translateX(-50%);
 }
 
 @keyframes fadeIn {

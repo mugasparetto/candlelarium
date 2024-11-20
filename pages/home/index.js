@@ -15,10 +15,10 @@ export function cleanup() {
 
 function goToNextScreen(event) {
   event.preventDefault();
-  const oracleReadingTime = localStorage.getItem('ORACLE_READING_TIME');
+  const storedOracle = JSON.parse(localStorage.getItem('CANDLELARIUM_ORACLE'));
 
-  if (oracleReadingTime) {
-    const diff = dayjs().diff(oracleReadingTime, 'm');
+  if (storedOracle && storedOracle.readingTime) {
+    const diff = dayjs().diff(storedOracle.readingTime, 'm');
     if (diff >= 1440) {
       spa.navigate('calibration');
     } else {
