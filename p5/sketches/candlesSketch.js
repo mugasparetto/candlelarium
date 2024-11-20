@@ -144,7 +144,7 @@ export class CandlesSketch {
   }
 
   startBlow() {
-    if (this.blowCount < this.maxBlowCount) {
+    if (this.blowCount < this.maxBlowCount && !this.shouldInitialFade) {
       this.isBlowing = true;
       this.finishedBlowing = false;
       const hint = this.p.select('#hint');
