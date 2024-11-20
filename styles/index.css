@@ -167,14 +167,61 @@ a:visited {
 
 .poem {
   position: absolute;
-  top: 0;
   width: 100vw;
   max-width: 30rem;
   top: 50%;
+  top: 50dvh;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   transition: opacity 1s ease;
+}
+
+.reading {
+  position: absolute;
+  width: calc(100vw - 3rem);
+  max-width: 30rem;
+  top: 50%;
+  top: 50dvh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: black;
+  padding: 4rem 2rem;
+  animation: fadeIn 1s;
+  position: relative;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='white' stroke-width='4' stroke-dasharray='10%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+}
+
+.reading .corner {
+  position: absolute;
+  font-size: 1.5rem;
+  width: 2rem;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+}
+
+.reading .corner:nth-child(1) {
+  top: -1.25rem;
+  left: -0.75rem;
+}
+
+.reading .corner:nth-child(2) {
+  top: -1.25rem;
+  right: -0.75rem;
+}
+
+.reading .corner:nth-child(3) {
+  bottom: -1.25rem;
+  left: -0.75rem;
+}
+
+.reading .corner:nth-child(4) {
+  bottom: -1.25rem;
+  right: -0.75rem;
 }
 
 @keyframes fadeIn {
