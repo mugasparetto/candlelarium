@@ -44,6 +44,11 @@ class SPA {
     const fadeDiv = document.querySelector('#fade');
 
     if (fadeDiv.style.opacity === '0') {
+      if (pageName === 'home') {
+        document.body.style = {};
+        document.body.style.transition = 'background-color 1s';
+        document.body.classList.remove('dark');
+      }
       fadeDiv.style.opacity = 1;
     }
 

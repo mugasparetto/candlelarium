@@ -44,7 +44,7 @@ main {
   pointer-events: none;
   z-index: 100;
   background-color: white;
-  transition: opacity 1s ease;
+  transition: background-color, opacity 1s ease;
 }
 
 .dark #fade {
@@ -232,6 +232,21 @@ a:visited {
   padding: 0.5rem;
   white-space: nowrap;
   animation: fadeIn 1s;
+}
+
+.final-candle {
+  position: absolute;
+  top: 50%;
+  top: 55dvh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s;
 }
 
 @keyframes fadeIn {
