@@ -189,7 +189,6 @@ a:visited {
   background: black;
   padding: 4rem 2rem;
   animation: fadeIn 1s;
-  position: relative;
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='white' stroke-width='4' stroke-dasharray='10%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
 }
 
@@ -247,6 +246,17 @@ a:visited {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s;
+}
+
+.wait {
+  position: absolute;
+  width: calc(100vw - 3rem);
+  max-width: 30rem;
+  top: 50%;
+  top: 50dvh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 @keyframes fadeIn {
