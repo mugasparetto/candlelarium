@@ -139,7 +139,7 @@ export class CalibrationSketch {
         this.shouldInitialFade = false;
         setTimeout(() => {
           if (this.blowCount === 0) {
-            BLOW_THRESHOLD = -18;
+            BLOW_THRESHOLD = -19;
             this.showHint();
           }
         }, 3500);

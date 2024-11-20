@@ -108,7 +108,7 @@ the event 'abortrecording' is generated.
                               |
                        MIN_SIGNAL_DURATION  
 */
-const MIN_SIGNAL_DURATION = 500;
+const MIN_SIGNAL_DURATION = 400;
 
 /*
  
