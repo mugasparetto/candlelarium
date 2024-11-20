@@ -32,14 +32,10 @@ export async function init() {
 
       showReading(data.reading, true);
     } else {
-      showReading(
-        'the oracle is still looking for the proper answer. come back later.'
-      );
+      showReading('the oracle got lost while wondering<br />come back later');
     }
   } catch (error) {
-    showReading(
-      'the oracle is still looking for the proper answer. come back later.'
-    );
+    showReading('the oracle got lost while wondering<br />come back later');
     console.log(error);
   }
 }
