@@ -17,5 +17,14 @@ function goToNextScreen(event) {
   event.preventDefault();
   const oracleReadingTime = localStorage.getItem('ORACLE_READING_TIME');
 
-  console.log(dayjs().diff(oracleReadingTime, 'm', true));
+  if (oracleReadingTime) {
+    const diff = dayjs().diff(oracleReadingTime, 'm');
+    if (diff >= 1440) {
+      spa.navigate('calibration');
+    } else {
+      spa.navigate('wait');
+    }
+  } else {
+    spa.navigate('calibration');
+  }
 }
