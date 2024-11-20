@@ -249,8 +249,10 @@ a:visited {
 }
 
 .reading.last {
+  top: 60%;
+  top: 60dvh;
   background: white;
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='4' stroke-dasharray='10%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='2' stroke-dasharray='10%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
 }
 
 .reading.last .corner {
@@ -260,10 +262,22 @@ a:visited {
 .reading.last .title {
   position: absolute;
   background-color: white;
-  padding: 0.5rem;
-  top: -0.75rem;
+  top: -0.5rem;
+  line-height: 1rem;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 100;
+}
+
+.reading.last .title::after {
+  content: '';
+  position: absolute;
+  height: 1rem;
+  width: 11rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  z-index: -5;
 }
 
 @keyframes fadeIn {
@@ -284,6 +298,10 @@ a:visited {
     top: 1rem;
     left: 3.5rem;
   }
+
+  .reading.last .title::after {
+    width: 9rem;
+  }
 }
 
 @media only screen and (max-height: 40rem) {
@@ -301,5 +319,10 @@ a:visited {
 
   #calibration-canvas {
     top: 40%;
+  }
+
+  .reading.last {
+    top: 55%;
+    top: 55dvh;
   }
 }
