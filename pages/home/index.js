@@ -8,6 +8,9 @@ export function init() {
 
   document.querySelector('#proceed').addEventListener('click', goToNextScreen);
   document.querySelector('#about-btn').addEventListener('click', showAbout);
+  document.querySelector('#about-btn').style.top = `${
+    window.innerHeight - 32 - 16
+  }px`;
 }
 
 export function cleanup() {
