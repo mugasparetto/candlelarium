@@ -6,11 +6,15 @@ export function init() {
     document.querySelector('.home-art').style.left = '52.5%';
   }
 
-  document.querySelector('a').addEventListener('click', goToNextScreen);
+  document.querySelector('#proceed').addEventListener('click', goToNextScreen);
+  document.querySelector('#about-btn').addEventListener('click', showAbout);
 }
 
 export function cleanup() {
-  document.querySelector('a').removeEventListener('click', goToNextScreen);
+  document
+    .querySelector('#proceed')
+    .removeEventListener('click', goToNextScreen);
+  document.querySelector('#about-btn').removeEventListener('click', showAbout);
 }
 
 function goToNextScreen(event) {
@@ -27,4 +31,18 @@ function goToNextScreen(event) {
   } else {
     spa.navigate('calibration');
   }
+}
+
+function showAbout(event) {
+  event.preventDefault();
+  const about = document.querySelector('#app');
+  const backdrop = document.createElement('div');
+  backdrop.classList.add('backdrop');
+
+  backdrop.innerHTML =
+    '<div class="about-content"><small>A portal to the unseen, Candlelarium is a web-based divination tool. It populates the internet with magic and invites seekers to uncover the wonders of possibility.<br /><br />Conjured by <a href="https://murilomakes.art/" target="_blank" onclick="event.stopPropagation();">Murilo Gasparetto</a></small></div>';
+  backdrop.onclick = () => backdrop.classList.add('hidden');
+  backdrop.ontransitionend = () => backdrop.remove();
+
+  about.insertAdjacentElement('beforeend', backdrop);
 }
