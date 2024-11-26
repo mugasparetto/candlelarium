@@ -79,9 +79,6 @@ main {
 }
 
 .backdrop {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -92,6 +89,10 @@ main {
 }
 
 .about-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 80vw;
   max-width: 20rem;
   background: white;
