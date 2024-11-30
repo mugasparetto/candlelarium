@@ -32,7 +32,7 @@ class Candle {
     }
 
     if (this.isTwisting) {
-      this.p.fill(0, this.twistFade);
+      this.p.fill(255, 0, 0, this.twistFade);
       this.p.ellipse(this.x, this.y, CELL_SIZE, CELL_SIZE);
       const scaleFactor = this.p.map(
         this.p.abs(
