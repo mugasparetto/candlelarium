@@ -9,6 +9,8 @@ export class CandlesSketch {
     this.finishedBlowing = false;
     this.blowCount = 0;
     this.maxBlowCount = 1;
+    this.isTimeToBlow = true;
+    this.twistedCount = 0;
 
     this.rows = 8;
     this.cols = 8;
@@ -24,7 +26,7 @@ export class CandlesSketch {
     const h = document.querySelector('#candles-canvas').offsetHeight;
     this.p.createCanvas(w, h);
     this.p.background(0);
-    this.p.textAlign(this.p.CENTER);
+    this.p.textAlign(this.p.CENTER, this.p.BASELINE);
     this.p.rectMode(this.p.CENTER);
     this.p.noStroke();
     this.p.textSize(CELL_SIZE - 5);
@@ -95,7 +97,7 @@ export class CandlesSketch {
       }
     }
 
-    if (this.finishedBlowing) {
+    if (this.finishedBlowing && this.isTimeToBlow) {
       if (this.waves.length > 0) {
         for (let y = 0; y < this.rows; y++) {
           if (
@@ -114,11 +116,10 @@ export class CandlesSketch {
           }
         }
         if (blownOutCount > 0) {
-          this.p.noLoop();
-          result = this.candles.map((col) => col.map((c) => c.blownOut));
+          this.isTimeToBlow = false;
           setTimeout(() => {
-            spa.navigate('reading');
-          }, 2500);
+            this.showPreTwistMessage();
+          }, 2000);
         } else {
           if (this.blowCount > 0) {
             this.blowCount--;
@@ -173,5 +174,78 @@ export class CandlesSketch {
     span.elt.style.width = '80vw';
     span.elt.style.textAlign = 'center';
     span.elt.style.animation = 'fadeIn 1s';
+  }
+
+  showPreTwistMessage() {
+    const messageDiv = this.p.createDiv();
+    messageDiv.addClass('backdrop');
+    messageDiv.elt.onanimationend = (event) => {
+      messageDiv.elt.onclick = (event) => {
+        event.preventDefault();
+        messageDiv.addClass('hidden');
+        messageDiv.elt.ontransitionend = (event) => {
+          if (event.propertyName === 'opacity') {
+            messageDiv.remove();
+            this.twist();
+          }
+        };
+      };
+    };
+
+    const messageContent = this.p.createSpan(
+      `<small>the others' spark lights your way,<br /><a href="#">mixed with yours, the oracle says</a></small>`
+    );
+    messageContent.addClass('twist-message');
+
+    const topPadding =
+      this.p.height > 640
+        ? 2.5 * CELL_SIZE + (this.p.height % CELL_SIZE)
+        : 3.5 * CELL_SIZE + (this.p.height % CELL_SIZE);
+
+    const startingCell =
+      this.p.height > 640 ? 6.5 * CELL_SIZE : 3.5 * CELL_SIZE;
+    const messageTop = topPadding - CELL_SIZE / 2 + startingCell;
+    const messageHeight = this.p.height > 640 ? 3 * CELL_SIZE : 2 * CELL_SIZE;
+
+    messageContent.style('top', `${messageTop / 16 - CELL_SIZE / 2 / 16}rem`);
+    messageContent.style('height', `${messageHeight / 16}rem`);
+
+    messageContent.parent(messageDiv);
+  }
+
+  twist() {
+    this.p.frameRate(60);
+    const lastReading = [
+      [true, false, false, true, false, true, false, false],
+      [true, true, false, true, true, true, false, false],
+      [false, true, false, true, false, false, false, false],
+      [true, true, false, true, false, false, false, true],
+      [false, false, false, true, true, true, true, false],
+      [false, false, false, true, false, true, false, false],
+      [false, true, false, true, false, true, false, false],
+      [false, true, true, false, true, false, false, true],
+    ];
+    this.candles.forEach((col, colIndex) => {
+      col.forEach((c, rowIndex) => {
+        if (c.blownOut == false && lastReading[colIndex][rowIndex] == true) {
+          this.twistedCount++;
+          c.twistTo('kill', () => this.subractTwistedCount());
+        }
+        if (c.blownOut === true && lastReading[colIndex][rowIndex] === true) {
+          this.twistedCount++;
+          c.twistTo('revive', () => this.subractTwistedCount());
+        }
+      });
+    });
+  }
+
+  subractTwistedCount() {
+    this.twistedCount--;
+    if (this.twistedCount === 0) {
+      result = this.candles.map((col) => col.map((c) => c.blownOut));
+      setTimeout(() => {
+        spa.navigate('reading');
+      }, 2000);
+    }
   }
 }

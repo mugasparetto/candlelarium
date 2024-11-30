@@ -86,6 +86,7 @@ main {
   right: 0;
   background: #000000bf;
   animation: fadeIn 1s;
+  overflow: hidden;
 }
 
 .about-content {
@@ -326,6 +327,20 @@ a:visited {
   transform: translateX(-50%);
   background: white;
   z-index: -5;
+}
+
+.twist-message {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 110vw;
+  max-width: 31rem;
+  background-color: black;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='white' stroke-width='4' stroke-dasharray='2%2c 8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes fadeIn {

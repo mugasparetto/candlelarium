@@ -13,6 +13,7 @@ class BlowWave {
 
   show() {
     this.p.fill(0);
+    this.p.textAlign(this.p.CENTER, this.p.BASELINE);
     this.p.text(
       '🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀',
       this.p.width / 2,

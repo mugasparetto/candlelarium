@@ -5,27 +5,78 @@ class Candle {
     this.y = y;
     this.health = health;
     this.initialHealth = health;
-    this.updateColor();
     this.blownOut = false;
-    this.resetCount = 2 + Math.floor(this.p.random(4));
+    this.resetCount = 1 + Math.floor(this.p.random(3));
+    this.twistFade = 0;
+    this.fadeFactor = 5;
+    this.twisted = false;
 
     this.p.noFill();
+    this.p.textSize(CELL_SIZE - 5);
     this.p.text('🕯️', this.width / 2, this.y);
     this.a = this.p.textAscent();
   }
 
   show() {
+    this.p.textAlign(this.p.CENTER, this.p.BASELINE);
     if (!this.blownOut) {
       this.p.fill(255);
-      // this.p.textSize(CELL_SIZE - 5);
+      this.p.textSize(CELL_SIZE - 5);
       this.p.text('🕯️', this.x, this.y + 0.45 * this.a);
-      // this.p.fill(255);
-      // this.p.textSize(12);
-      // this.p.text(Math.floor(this.health), this.x - 10, this.y - 3);
     } else {
+      this.p.fill(255);
+      this.p.textSize(CELL_SIZE - 5);
       this.p.text('🕯️', this.x, this.y + 0.45 * this.a);
       this.p.fill(0, 204);
       this.p.ellipse(this.x, this.y, CELL_SIZE, CELL_SIZE);
+    }
+
+    if (this.isTwisting) {
+      this.p.fill(0, this.twistFade);
+      this.p.ellipse(this.x, this.y, CELL_SIZE, CELL_SIZE);
+      const scaleFactor = this.p.map(
+        this.p.abs(
+          this.p.sin((this.p.frameCount - this.frameCountTwist) * 0.02)
+        ),
+        0,
+        1,
+        0.4,
+        1.1
+      );
+
+      this.p.textSize((CELL_SIZE - 5) * scaleFactor);
+      this.p.fill(0, this.twistFade);
+      this.p.textAlign(this.p.CENTER, this.p.CENTER);
+      this.p.text(
+        `${this.twist === 'kill' ? '🌀' : '🔥'}`,
+        this.x,
+        this.y + 0.05 * this.a
+      );
+
+      if (
+        (this.fadeFactor > 0 && this.twistFade < 255) ||
+        (this.twistFade >= 0 && this.fadeFactor < 0)
+      ) {
+        this.twistFade += this.fadeFactor;
+      }
+      if (this.fadeFactor < 0 && this.twistFade < 0) {
+        this.p.noLoop();
+        this.parentCallback();
+        this.isTwisting = false;
+      }
+      if (
+        this.p.frameCount - this.frameCountTwist >=
+        6.5 * this.p.frameRate()
+      ) {
+        this.fadeFactor = -5;
+      }
+      if (
+        this.p.frameCount - this.frameCountTwist >= 1.4 * this.p.frameRate() &&
+        !this.twisted
+      ) {
+        this.twisted = true;
+        this.blownOut = !this.blownOut;
+      }
     }
   }
 
@@ -54,8 +105,10 @@ class Candle {
     }
   }
 
-  updateColor() {
-    const c = this.p.map(this.health, 0, 2 * HEALTH_FACTOR, 0, 255);
-    this.color = this.p.color(0, c, 0);
+  twistTo(state, callback) {
+    this.twist = state;
+    this.isTwisting = true;
+    this.frameCountTwist = this.p.frameCount;
+    this.parentCallback = callback;
   }
 }
