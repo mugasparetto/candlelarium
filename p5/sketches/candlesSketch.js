@@ -117,6 +117,7 @@ export class CandlesSketch {
         }
         if (blownOutCount > 0) {
           this.isTimeToBlow = false;
+          // Fetch
           setTimeout(() => {
             this.showPreTwistMessage();
           }, 2000);
@@ -245,7 +246,7 @@ export class CandlesSketch {
       result = this.candles.map((col) => col.map((c) => c.blownOut));
       setTimeout(() => {
         spa.navigate('reading');
-      }, 2000);
+      }, 2500);
     }
   }
 }

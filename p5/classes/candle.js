@@ -40,18 +40,26 @@ class Candle {
         ),
         0,
         1,
-        0.4,
+        0,
         1.1
       );
 
       this.p.textSize((CELL_SIZE - 5) * scaleFactor);
-      this.p.fill(0, this.twistFade);
+      this.p.fill(0);
       this.p.textAlign(this.p.CENTER, this.p.CENTER);
-      this.p.text(
-        `${this.twist === 'kill' ? '🌀' : '🔥'}`,
-        this.x,
-        this.y + 0.05 * this.a
-      );
+      if (
+        this.fadeFactor < 0 &&
+        this.twistFade < 0 &&
+        scaleFactor >= 0 &&
+        scaleFactor <= 0.15
+      ) {
+      } else {
+        this.p.text(
+          `${this.twist === 'kill' ? '🌀' : '🔥'}`,
+          this.x,
+          this.y + 0.05 * this.a
+        );
+      }
 
       if (
         (this.fadeFactor > 0 && this.twistFade < 255) ||
@@ -59,7 +67,12 @@ class Candle {
       ) {
         this.twistFade += this.fadeFactor;
       }
-      if (this.fadeFactor < 0 && this.twistFade < 0) {
+      if (
+        this.fadeFactor < 0 &&
+        this.twistFade < 0 &&
+        scaleFactor >= 0 &&
+        scaleFactor <= 0.15
+      ) {
         this.p.noLoop();
         this.parentCallback();
         this.isTwisting = false;
