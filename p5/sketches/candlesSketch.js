@@ -1,3 +1,14 @@
+const resultFallback = [
+  [true, false, false, true, false, true, false, false],
+  [true, true, false, true, true, true, false, false],
+  [false, true, false, true, false, false, false, false],
+  [true, true, false, true, false, false, false, true],
+  [false, false, false, true, true, true, true, false],
+  [false, false, false, true, false, true, false, false],
+  [false, true, false, true, false, true, false, false],
+  [false, true, true, false, true, false, false, true],
+];
+
 export class CandlesSketch {
   constructor(p) {
     this.p = p;
@@ -62,6 +73,20 @@ export class CandlesSketch {
         );
       }
     }
+
+    fetch(
+      'https://spontaneous-malasada-76fad8.netlify.app/.netlify/functions/getLastResult'
+    )
+      .then((response) =>
+        response.json().then((data) => {
+          errorLastResult = false;
+          this.lastResult = data;
+        })
+      )
+      .catch((error) => {
+        errorLastResult = true;
+        this.lastResult = resultFallback;
+      });
   }
 
   draw() {
@@ -117,7 +142,6 @@ export class CandlesSketch {
         }
         if (blownOutCount > 0) {
           this.isTimeToBlow = false;
-          // Fetch
           setTimeout(() => {
             this.showPreTwistMessage();
           }, 2000);
@@ -216,23 +240,14 @@ export class CandlesSketch {
 
   twist() {
     this.p.frameRate(60);
-    const lastReading = [
-      [true, false, false, true, false, true, false, false],
-      [true, true, false, true, true, true, false, false],
-      [false, true, false, true, false, false, false, false],
-      [true, true, false, true, false, false, false, true],
-      [false, false, false, true, true, true, true, false],
-      [false, false, false, true, false, true, false, false],
-      [false, true, false, true, false, true, false, false],
-      [false, true, true, false, true, false, false, true],
-    ];
+    const lastResult = this.lastResult || resultFallback;
     this.candles.forEach((col, colIndex) => {
       col.forEach((c, rowIndex) => {
-        if (c.blownOut == false && lastReading[colIndex][rowIndex] == true) {
+        if (c.blownOut == false && lastResult[colIndex][rowIndex] == true) {
           this.twistedCount++;
           c.twistTo('kill', () => this.subractTwistedCount());
         }
-        if (c.blownOut === true && lastReading[colIndex][rowIndex] === true) {
+        if (c.blownOut === true && lastResult[colIndex][rowIndex] === true) {
           this.twistedCount++;
           c.twistTo('revive', () => this.subractTwistedCount());
         }

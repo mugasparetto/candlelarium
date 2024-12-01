@@ -95,6 +95,7 @@ const calibrationBlows = [];
 let domain;
 let spa;
 let result = [];
+let errorLastResult;
 
 document.addEventListener('DOMContentLoaded', () => {
   spa = new SPA();

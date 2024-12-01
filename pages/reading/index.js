@@ -23,7 +23,7 @@ export async function init() {
       'https://spontaneous-malasada-76fad8.netlify.app/.netlify/functions/getReading',
       {
         method: 'POST',
-        body: JSON.stringify({ domain, result }),
+        body: JSON.stringify({ domain, result, errorLastResult }),
       }
     );
 
