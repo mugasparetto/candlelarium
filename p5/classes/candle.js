@@ -8,7 +8,7 @@ class Candle {
     this.blownOut = false;
     this.resetCount = 1 + Math.floor(this.p.random(3));
     this.twistFade = 0;
-    this.fadeFactor = 5;
+    this.fadeFactor = 300;
     this.twisted = false;
 
     this.p.noFill();
@@ -32,16 +32,10 @@ class Candle {
     }
 
     if (this.isTwisting) {
-      this.p.fill(255, 0, 0, this.twistFade);
+      this.p.fill(0, this.twistFade);
       this.p.ellipse(this.x, this.y, CELL_SIZE, CELL_SIZE);
-      const scaleFactor = this.p.map(
-        this.p.abs(
-          this.p.sin((this.p.frameCount - this.frameCountTwist) * 0.02)
-        ),
-        0,
-        1,
-        0,
-        1.1
+      const scaleFactor = this.p.abs(
+        this.p.sin((this.p.millis() - this.timeTwist) * 0.0015)
       );
 
       this.p.textSize((CELL_SIZE - 5) * scaleFactor);
@@ -51,7 +45,7 @@ class Candle {
         this.fadeFactor < 0 &&
         this.twistFade < 0 &&
         scaleFactor >= 0 &&
-        scaleFactor <= 0.15
+        scaleFactor <= 0.2
       ) {
       } else {
         this.p.text(
@@ -65,28 +59,21 @@ class Candle {
         (this.fadeFactor > 0 && this.twistFade < 255) ||
         (this.twistFade >= 0 && this.fadeFactor < 0)
       ) {
-        this.twistFade += this.fadeFactor;
+        this.twistFade += (this.fadeFactor * this.p.deltaTime) / 1000;
       }
       if (
         this.fadeFactor < 0 &&
         this.twistFade < 0 &&
         scaleFactor >= 0 &&
-        scaleFactor <= 0.15
+        scaleFactor <= 0.2
       ) {
-        this.p.noLoop();
         this.parentCallback();
         this.isTwisting = false;
       }
-      if (
-        this.p.frameCount - this.frameCountTwist >=
-        6.5 * this.p.frameRate()
-      ) {
-        this.fadeFactor = -5;
+      if (this.p.millis() - this.timeTwist >= 4.5 * 1000) {
+        this.fadeFactor = -220;
       }
-      if (
-        this.p.frameCount - this.frameCountTwist >= 1.4 * this.p.frameRate() &&
-        !this.twisted
-      ) {
+      if (this.p.millis() - this.timeTwist >= 1000 && !this.twisted) {
         this.twisted = true;
         this.blownOut = !this.blownOut;
       }
@@ -121,7 +108,7 @@ class Candle {
   twistTo(state, callback) {
     this.twist = state;
     this.isTwisting = true;
-    this.frameCountTwist = this.p.frameCount;
+    this.timeTwist = this.p.millis();
     this.parentCallback = callback;
   }
 }
