@@ -11,6 +11,9 @@ export function init() {
   document.querySelector('#about-btn').style.top = `${
     window.innerHeight - 32 - 16
   }px`;
+
+  // Prevent Safari bug that scrolls page down (make it go up) after a while
+  window.scrollTo(0, 0);
 }
 
 export function cleanup() {
