@@ -16,7 +16,6 @@ export function init() {
   window.scrollTo(0, 0);
 
   if (appStream) {
-    console.log('entrei');
     appStream.getTracks().forEach(function (track) {
       track.stop();
     });
