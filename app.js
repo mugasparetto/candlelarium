@@ -87,6 +87,7 @@ class SPA {
 }
 
 var audioContext = null;
+var appStream = null;
 var meter = null;
 const CELL_SIZE = 30;
 const HEALTH_FACTOR = 30;

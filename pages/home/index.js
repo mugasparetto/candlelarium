@@ -14,6 +14,13 @@ export function init() {
 
   // Prevent Safari bug that scrolls page down (make it go up) after a while
   window.scrollTo(0, 0);
+
+  if (appStream) {
+    console.log('entrei');
+    appStream.getTracks().forEach(function (track) {
+      track.stop();
+    });
+  }
 }
 
 export function cleanup() {

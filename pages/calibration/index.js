@@ -77,6 +77,8 @@ function startCalibration(event) {
       })
       .then(async (stream) => {
         audioStream(stream);
+        appStream = stream;
+
         const link = document.querySelector('a');
         link.removeEventListener('click', startCalibration);
 
