@@ -119,7 +119,7 @@ function startCalibration(event) {
 }
 
 function didntGetStream(error) {
-  alert('Stream generation failed.');
+  alert('Something went wrong. Please try with a different browser.');
   console.log(error);
 }
 
